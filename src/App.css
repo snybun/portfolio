@@ -1,0 +1,21 @@
+/* ============================================
+   APP STYLES
+   Main layout and section structure
+   ============================================ */
+
+.app {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Page loading state */
+.app--loading {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Main content wrapper */
+.main-content {
+  position: relative;
+  z-index: 1;
+}
