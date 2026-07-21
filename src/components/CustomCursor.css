@@ -9,8 +9,9 @@
   left: 0;
   width: 32px;
   height: 32px;
-  border: 1.5px solid rgba(245, 245, 245, 0.6);
+  border: 1px solid #ffffff;
   border-radius: 50%;
+  background: #ffffff;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
@@ -25,15 +26,15 @@
 .custom-cursor__ring--hovering {
   width: 60px;
   height: 60px;
-  border-color: rgba(245, 245, 245, 0.9);
-  background: rgba(245, 245, 245, 0.08);
+  border-color: #ffffff;
+  background: #ffffff;
 }
 
 /* Click state - circle shrinks */
 .custom-cursor__ring--clicking {
   width: 24px;
   height: 24px;
-  border-color: rgba(245, 245, 245, 0.9);
+  border-color: #ffffff;
 }
 
 /* Hide on mobile / touch devices */

@@ -168,11 +168,17 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1120px) {
   .navbar__center {
     display: none;
   }
 
+  .navbar__links {
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
   .navbar__links {
     display: none;
   }
