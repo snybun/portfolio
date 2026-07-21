@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import './Hero.css'
 
-function Hero() {
+function Hero({ preloaderDone }) {
   // Scroll to about section
   const scrollToAbout = () => {
     const aboutSection = document.querySelector('#about')
@@ -10,35 +10,40 @@ function Hero() {
     }
   }
 
-  // Animation variants
+  // Animation delay offset based on preloader
+  const animDelay = preloaderDone ? 0.3 : 1.2
+
   const titleVariants = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.6,
+        delayChildren: animDelay,
       },
     },
   }
 
   const lineVariants = {
-    hidden: { y: 80, opacity: 0 },
+    hidden: { y: '110%' },
     visible: {
-      y: 0,
-      opacity: 1,
+      y: '0%',
       transition: {
-        duration: 1,
+        duration: 1.1,
         ease: [0.16, 1, 0.3, 1],
       },
     },
   }
 
   const scrollVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.8, delay: 1.8 },
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        delay: animDelay + 0.6,
+      },
     },
   }
 
@@ -50,15 +55,21 @@ function Hero() {
         initial="hidden"
         animate="visible"
       >
-        <motion.span className="hero__title-line" variants={lineVariants}>
-          creative{' '}
-        </motion.span>
-        <motion.span className="hero__title-line" variants={lineVariants}>
-          <span className="hero__emphasis">designer</span> &{' '}
-        </motion.span>
-        <motion.span className="hero__title-line" variants={lineVariants}>
-          <span className="hero__emphasis">developer</span>.
-        </motion.span>
+        <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
+          <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
+            creative{' '}
+          </motion.span>
+        </span>
+        <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
+          <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
+            <span className="hero__emphasis">designer</span> &{' '}
+          </motion.span>
+        </span>
+        <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
+          <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
+            <span className="hero__emphasis">developer</span>.
+          </motion.span>
+        </span>
       </motion.h1>
 
       {/* Scroll indicator */}

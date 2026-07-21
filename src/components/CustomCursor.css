@@ -1,0 +1,51 @@
+/* ============================================
+   CUSTOM CURSOR STYLES
+   Single circle cursor with expand on hover
+   ============================================ */
+
+.custom-cursor__ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(245, 245, 245, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+/* Hover state - circle expands */
+.custom-cursor__ring--hovering {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(245, 245, 245, 0.9);
+  background: rgba(245, 245, 245, 0.08);
+}
+
+/* Click state - circle shrinks */
+.custom-cursor__ring--clicking {
+  width: 24px;
+  height: 24px;
+  border-color: rgba(245, 245, 245, 0.9);
+}
+
+/* Hide on mobile / touch devices */
+@media (hover: none), (max-width: 768px) {
+  .custom-cursor__ring {
+    display: none !important;
+  }
+}
+
+/* Hide default cursor on desktop */
+@media (hover: hover) and (min-width: 769px) {
+  * {
+    cursor: none !important;
+  }
+}

@@ -1,0 +1,33 @@
+/* ============================================
+   TEXT REVEAL ANIMATION
+   Masked text slide-up reveal
+   ============================================ */
+
+.text-reveal {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.text-reveal__inner {
+  display: inline-block;
+}
+
+/* Character-by-character reveal */
+.char-reveal {
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.char-reveal__wrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.char-reveal__char {
+  display: inline-block;
+}
+
+.char-reveal__space {
+  display: inline-block;
+  width: 0.3em;
+}

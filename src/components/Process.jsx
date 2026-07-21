@@ -128,15 +128,17 @@ function Process() {
                     openIndex === index ? 'process__step-toggle--open' : ''
                   }`}
                 >
-                  <svg
+                  <motion.svg
                     viewBox="0 0 14 14"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.5"
+                    animate={{ rotate: openIndex === index ? 45 : 0 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <line x1="7" y1="0" x2="7" y2="14" />
                     <line x1="0" y1="7" x2="14" y2="7" />
-                  </svg>
+                  </motion.svg>
                 </div>
               </div>
 
