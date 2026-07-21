@@ -21,6 +21,7 @@
   inset: 0;
   background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px);
   background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 72%, transparent);
   mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 72%, transparent);
   opacity: 0.18;
   pointer-events: none;
@@ -148,11 +149,21 @@
   }
 
   .hero__title {
-    font-size: clamp(4rem, 5.75rem, 6rem);
+    font-size: 5.75rem;
   }
 
   .hero__scroll-line {
     height: 28px;
+  }
+}
+
+@media (max-height: 620px) and (min-width: 769px) {
+  .hero__title {
+    font-size: 4.75rem;
+  }
+
+  .hero__scroll-indicator {
+    margin-top: var(--space-sm);
   }
 }
 
@@ -164,7 +175,7 @@
   }
 
   .hero__title {
-    font-size: clamp(3rem, 4rem, 4rem);
+    font-size: 4rem;
     line-height: 1;
   }
 
@@ -189,7 +200,7 @@
   }
 
   .hero__title {
-    font-size: clamp(2.55rem, 3.1rem, 3.1rem);
+    font-size: 3.1rem;
   }
 
   .hero__meta {
@@ -200,5 +211,11 @@
 
   .hero__scroll-text {
     font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero__title {
+    font-size: 2.65rem;
   }
 }
