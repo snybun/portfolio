@@ -2,75 +2,121 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Preloader.css'
 
-const greetings = [
-  { text: 'ようこそ', lang: 'Japanese' },
-  { text: 'Bienvenue', lang: 'French' },
-  { text: 'Welcome', lang: 'English' },
+const loadingSteps = [
+  'Loading portfolio',
+  'Preparing motion',
+  'Composing interface',
+  'Ready',
 ]
 
 function Preloader({ onComplete }) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isExiting, setIsExiting] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [isLeaving, setIsLeaving] = useState(false)
 
   const handleComplete = useCallback(() => {
     onComplete()
   }, [onComplete])
 
   useEffect(() => {
-    // Cycle through greetings with timing
-    const timings = [800, 800, 1000] // Duration for each greeting
-    let timeoutId
+    const duration = 2600
+    const start = performance.now()
+    let frameId
+    let exitTimer
 
-    const cycleGreeting = (index) => {
-      if (index >= greetings.length) {
-        // All greetings shown, start exit
-        setTimeout(() => {
-          setIsExiting(true)
-          setTimeout(handleComplete, 900)
-        }, 200)
+    const tick = (now) => {
+      const elapsed = now - start
+      const nextProgress = Math.min(100, Math.round((elapsed / duration) * 100))
+      setProgress(nextProgress)
+
+      if (nextProgress < 100) {
+        frameId = requestAnimationFrame(tick)
         return
       }
 
-      setCurrentIndex(index)
-      timeoutId = setTimeout(() => {
-        cycleGreeting(index + 1)
-      }, timings[index])
+      exitTimer = setTimeout(() => {
+        setIsLeaving(true)
+      }, 450)
     }
 
-    // Start after brief pause
-    timeoutId = setTimeout(() => cycleGreeting(0), 300)
+    frameId = requestAnimationFrame(tick)
 
-    return () => clearTimeout(timeoutId)
-  }, [handleComplete])
+    return () => {
+      cancelAnimationFrame(frameId)
+      clearTimeout(exitTimer)
+    }
+  }, [])
+
+  const currentStep = loadingSteps[
+    Math.min(loadingSteps.length - 1, Math.floor((progress / 100) * loadingSteps.length))
+  ]
 
   return (
-    <AnimatePresence>
-      {!isExiting && (
+    <AnimatePresence onExitComplete={handleComplete}>
+      {!isLeaving && (
         <motion.div
           className="preloader"
-          initial={{ y: 0 }}
+          initial={{ opacity: 1 }}
           exit={{ y: '-100%' }}
           transition={{
-            duration: 0.85,
-            ease: [0.65, 0, 0.35, 1],
+            duration: 1,
+            ease: [0.76, 0, 0.24, 1],
           }}
         >
-          <div className="preloader__text-wrapper">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={currentIndex}
-                className="preloader__text"
-                initial={{ y: '100%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                exit={{ y: '-100%', opacity: 0 }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
+          <motion.div
+            className="preloader__wipe preloader__wipe--top"
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          />
+          <motion.div
+            className="preloader__wipe preloader__wipe--bottom"
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.08 }}
+          />
+
+          <div className="preloader__meta">
+            <span>Mark</span>
+            <span>Portfolio / 2026</span>
+          </div>
+
+          <div className="preloader__center">
+            <div className="preloader__name-mask">
+              <motion.h1
+                className="preloader__name"
+                initial={{ y: '110%' }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
               >
-                {greetings[currentIndex].text}
-              </motion.span>
-            </AnimatePresence>
+                Mark
+              </motion.h1>
+            </div>
+
+            <div className="preloader__status-mask">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentStep}
+                  className="preloader__status"
+                  initial={{ y: '120%', opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: '-120%', opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {currentStep}
+                </motion.span>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          <div className="preloader__footer">
+            <span className="preloader__counter">{String(progress).padStart(3, '0')}%</span>
+            <div className="preloader__bar" aria-hidden="true">
+              <motion.div
+                className="preloader__bar-fill"
+                animate={{ scaleX: progress / 100 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              />
+            </div>
           </div>
         </motion.div>
       )}

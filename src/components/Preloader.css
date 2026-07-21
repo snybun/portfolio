@@ -1,6 +1,6 @@
 /* ============================================
    PRELOADER STYLES
-   Multilingual greeting loading screen
+   Full-screen loading wipe
    ============================================ */
 
 .preloader {
@@ -10,38 +10,112 @@
   width: 100%;
   height: 100vh;
   background: #0a0a0a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 9998;
   overflow: hidden;
 }
 
-.preloader__text-wrapper {
-  position: relative;
-  height: 60px;
+.preloader__wipe {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #f5f5f5;
+  transform-origin: top;
+  opacity: 0.035;
+  pointer-events: none;
+}
+
+.preloader__wipe--top {
+  top: 0;
+}
+
+.preloader__wipe--bottom {
+  bottom: 0;
+  transform-origin: bottom;
+}
+
+.preloader__meta,
+.preloader__footer {
+  position: absolute;
+  left: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  color: rgba(245, 245, 245, 0.56);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+.preloader__meta {
+  top: var(--space-lg);
+}
+
+.preloader__footer {
+  bottom: var(--space-lg);
+  gap: var(--space-md);
+}
+
+.preloader__center {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+}
+
+.preloader__name-mask,
+.preloader__status-mask {
   overflow: hidden;
 }
 
-.preloader__text {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(1.8rem, 1.5rem + 1.5vw, 3rem);
-  font-weight: 300;
+.preloader__name {
+  font-size: clamp(4rem, 14vw, 12rem);
+  font-weight: var(--fw-light);
+  line-height: 0.88;
   color: #f5f5f5;
-  letter-spacing: -0.02em;
-  position: absolute;
+  letter-spacing: var(--ls-tight);
+}
+
+.preloader__status {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: rgba(245, 245, 245, 0.58);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
-/* Slide cover that wipes up to reveal content */
-.preloader__cover {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.preloader__counter {
+  min-width: 48px;
+  font-variant-numeric: tabular-nums;
+}
+
+.preloader__bar {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(245, 245, 245, 0.16);
+}
+
+.preloader__bar-fill {
   width: 100%;
-  background: #0a0a0a;
-  z-index: 1;
+  height: 100%;
+  background: #f5f5f5;
+  transform-origin: left;
+}
+
+@media (max-width: 768px) {
+  .preloader__meta,
+  .preloader__footer {
+    left: var(--space-md);
+    right: var(--space-md);
+  }
 }
