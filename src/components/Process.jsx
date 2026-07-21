@@ -60,7 +60,7 @@ const steps = [
 function Process() {
   const [openIndex, setOpenIndex] = useState(null)
   const sectionRef = useRef(null)
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
+  const isInView = useInView(sectionRef, { margin: '-100px' })
 
   const toggleStep = (index) => {
     setOpenIndex(openIndex === index ? null : index)

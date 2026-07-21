@@ -42,7 +42,7 @@ const projects = [
 
 function Work() {
   const sectionRef = useRef(null)
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
+  const isInView = useInView(sectionRef, { margin: '-100px' })
 
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },

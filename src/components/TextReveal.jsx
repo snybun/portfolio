@@ -24,7 +24,7 @@ function TextReveal({
   style = {},
 }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, { margin: '-80px' })
 
   const shouldAnimate = triggerOnScroll ? isInView : true
 
@@ -96,7 +96,7 @@ function SplitTextReveal({
   renderLine,
 }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, { margin: '-80px' })
   const shouldAnimate = triggerOnScroll ? isInView : true
 
   return (

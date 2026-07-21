@@ -4,7 +4,7 @@ import './Footer.css'
 
 function Footer() {
   const footerRef = useRef(null)
-  const isInView = useInView(footerRef, { once: true, margin: '-50px' })
+  const isInView = useInView(footerRef, { margin: '-50px' })
 
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
