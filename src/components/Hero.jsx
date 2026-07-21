@@ -1,7 +1,12 @@
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import './Hero.css'
 
 function Hero({ preloaderDone }) {
+  const heroRef = useRef(null)
+  const heroInView = useInView(heroRef, { margin: '-12% 0px -24% 0px' })
+  const shouldAnimate = preloaderDone && heroInView
+
   const scrollToAbout = () => {
     const aboutSection = document.querySelector('#about')
     if (aboutSection) {
@@ -60,11 +65,11 @@ function Hero({ preloaderDone }) {
   }
 
   return (
-    <section className="hero" id="hero">
+    <section className="hero" id="hero" ref={heroRef}>
       <motion.div
         className="hero__reveal-panel"
         initial={{ scaleY: 1 }}
-        animate={{ scaleY: preloaderDone ? 0 : 1 }}
+        animate={{ scaleY: shouldAnimate ? 0 : 1 }}
         transition={{
           duration: 1.2,
           ease: [0.76, 0, 0.24, 1],
@@ -77,7 +82,7 @@ function Hero({ preloaderDone }) {
         className="hero__meta hero__meta--left"
         variants={metaVariants}
         initial="hidden"
-        animate={preloaderDone ? 'visible' : 'hidden'}
+        animate={shouldAnimate ? 'visible' : 'hidden'}
       >
         <span>Available for freelance</span>
       </motion.div>
@@ -86,7 +91,7 @@ function Hero({ preloaderDone }) {
         className="hero__meta hero__meta--right"
         variants={metaVariants}
         initial="hidden"
-        animate={preloaderDone ? 'visible' : 'hidden'}
+        animate={shouldAnimate ? 'visible' : 'hidden'}
       >
         <span>Philippines</span>
       </motion.div>
@@ -95,7 +100,7 @@ function Hero({ preloaderDone }) {
         className="hero__title"
         variants={titleVariants}
         initial="hidden"
-        animate={preloaderDone ? 'visible' : 'hidden'}
+        animate={shouldAnimate ? 'visible' : 'hidden'}
       >
         <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
           <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
@@ -118,7 +123,7 @@ function Hero({ preloaderDone }) {
         className="hero__scroll-indicator"
         variants={scrollVariants}
         initial="hidden"
-        animate={preloaderDone ? 'visible' : 'hidden'}
+        animate={shouldAnimate ? 'visible' : 'hidden'}
         onClick={scrollToAbout}
       >
         <span className="hero__scroll-text">Scroll to explore</span>
