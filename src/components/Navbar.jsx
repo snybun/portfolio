@@ -11,7 +11,6 @@ const navLinks = [
 
 function Navbar({ preloaderDone }) {
   const [time, setTime] = useState('')
-  const [isScrolled, setIsScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [hidden, setHidden] = useState(false)
@@ -40,14 +39,12 @@ function Navbar({ preloaderDone }) {
       const currentScrollY = window.scrollY
 
       if (currentScrollY > 100) {
-        setIsScrolled(true)
         if (currentScrollY > lastScrollY && currentScrollY > 200) {
           setHidden(true)
         } else {
           setHidden(false)
         }
       } else {
-        setIsScrolled(false)
         setHidden(false)
       }
 
@@ -81,7 +78,7 @@ function Navbar({ preloaderDone }) {
       <motion.nav
         className={`navbar ${hidden ? 'navbar--hidden' : ''}`}
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={{ y: preloaderDone ? 0 : -100, opacity: preloaderDone ? 1 : 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: animDelay }}
       >
         {/* Logo */}
@@ -105,7 +102,7 @@ function Navbar({ preloaderDone }) {
               className="navbar__link"
               onClick={(e) => scrollToSection(e, link.href)}
               initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              animate={{ y: preloaderDone ? 0 : -20, opacity: preloaderDone ? 1 : 0 }}
               transition={{ duration: 0.5, delay: animDelay + 0.2 + i * 0.08 }}
             >
               {link.label}

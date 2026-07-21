@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import './Hero.css'
 
 function Hero({ preloaderDone }) {
-  // Scroll to about section
   const scrollToAbout = () => {
     const aboutSection = document.querySelector('#about')
     if (aboutSection) {
@@ -11,7 +10,7 @@ function Hero({ preloaderDone }) {
   }
 
   // Animation delay offset based on preloader
-  const animDelay = preloaderDone ? 0.3 : 1.2
+  const animDelay = preloaderDone ? 0.25 : 0
 
   const titleVariants = {
     hidden: {},
@@ -34,6 +33,19 @@ function Hero({ preloaderDone }) {
     },
   }
 
+  const metaVariants = {
+    hidden: { opacity: 0, y: 18 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.75,
+        ease: [0.16, 1, 0.3, 1],
+        delay: animDelay + 0.35,
+      },
+    },
+  }
+
   const scrollVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -49,11 +61,41 @@ function Hero({ preloaderDone }) {
 
   return (
     <section className="hero" id="hero">
+      <motion.div
+        className="hero__reveal-panel"
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: preloaderDone ? 0 : 1 }}
+        transition={{
+          duration: 1.2,
+          ease: [0.76, 0, 0.24, 1],
+          delay: preloaderDone ? 0.05 : 0,
+        }}
+        aria-hidden="true"
+      />
+
+      <motion.div
+        className="hero__meta hero__meta--left"
+        variants={metaVariants}
+        initial="hidden"
+        animate={preloaderDone ? 'visible' : 'hidden'}
+      >
+        <span>Available for freelance</span>
+      </motion.div>
+
+      <motion.div
+        className="hero__meta hero__meta--right"
+        variants={metaVariants}
+        initial="hidden"
+        animate={preloaderDone ? 'visible' : 'hidden'}
+      >
+        <span>Philippines</span>
+      </motion.div>
+
       <motion.h1
         className="hero__title"
         variants={titleVariants}
         initial="hidden"
-        animate="visible"
+        animate={preloaderDone ? 'visible' : 'hidden'}
       >
         <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
           <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
@@ -72,12 +114,11 @@ function Hero({ preloaderDone }) {
         </span>
       </motion.h1>
 
-      {/* Scroll indicator */}
       <motion.div
         className="hero__scroll-indicator"
         variants={scrollVariants}
         initial="hidden"
-        animate="visible"
+        animate={preloaderDone ? 'visible' : 'hidden'}
         onClick={scrollToAbout}
       >
         <span className="hero__scroll-text">Scroll to explore</span>
