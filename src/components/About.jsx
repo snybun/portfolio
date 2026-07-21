@@ -6,8 +6,8 @@ import './About.css'
 function About() {
   const helloRef = useRef(null)
   const craftRef = useRef(null)
-  const helloInView = useInView(helloRef, { once: true, margin: '-100px' })
-  const craftInView = useInView(craftRef, { once: true, margin: '-100px' })
+  const helloInView = useInView(helloRef, { margin: '-100px' })
+  const craftInView = useInView(craftRef, { margin: '-100px' })
 
   const fadeUp = {
     hidden: { opacity: 0, y: 48 },

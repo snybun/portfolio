@@ -19,41 +19,41 @@ function CustomCursor() {
     const hasHover = window.matchMedia('(hover: hover)').matches
     if (!hasHover) return
 
+    const isInteractive = (target) => {
+      if (!(target instanceof Element)) return false
+
+      return Boolean(
+        target.closest('a') ||
+          target.closest('button') ||
+          target.closest('[data-cursor-hover]') ||
+          target.closest('.navbar') ||
+          target.closest('.process__step-header') ||
+          target.closest('.contact__cta') ||
+          target.closest('.work__project-link') ||
+          target.closest('.contact__social-link') ||
+          target.closest('.footer__link') ||
+          target.closest('.about__skill-tag') ||
+          target.closest('.hero__scroll-indicator')
+      )
+    }
+
     const moveCursor = (e) => {
       cursorX.set(e.clientX)
       cursorY.set(e.clientY)
-      if (!isVisible) setIsVisible(true)
+      setIsVisible(true)
+      setIsHovering((current) => {
+        const next = isInteractive(e.target)
+        return current === next ? current : next
+      })
     }
 
     const handleMouseDown = () => setIsClicking(true)
     const handleMouseUp = () => setIsClicking(false)
 
     const handleMouseEnter = () => setIsVisible(true)
-    const handleMouseLeave = () => setIsVisible(false)
-
-    const isInteractive = (target) => {
-      return (
-        target.closest('a') ||
-        target.closest('button') ||
-        target.closest('[data-cursor-hover]') ||
-        target.closest('.navbar__link') ||
-        target.closest('.navbar__logo') ||
-        target.closest('.process__step-header') ||
-        target.closest('.contact__cta') ||
-        target.closest('.work__project-link') ||
-        target.closest('.contact__social-link') ||
-        target.closest('.footer__link') ||
-        target.closest('.about__skill-tag') ||
-        target.closest('.hero__scroll-indicator')
-      )
-    }
-
-    const handleMouseOver = (e) => {
-      if (isInteractive(e.target)) setIsHovering(true)
-    }
-
-    const handleMouseOut = (e) => {
-      if (isInteractive(e.target)) setIsHovering(false)
+    const handleMouseLeave = () => {
+      setIsVisible(false)
+      setIsHovering(false)
     }
 
     window.addEventListener('mousemove', moveCursor)
@@ -61,8 +61,6 @@ function CustomCursor() {
     window.addEventListener('mouseup', handleMouseUp)
     document.addEventListener('mouseenter', handleMouseEnter)
     document.addEventListener('mouseleave', handleMouseLeave)
-    document.addEventListener('mouseover', handleMouseOver)
-    document.addEventListener('mouseout', handleMouseOut)
 
     return () => {
       window.removeEventListener('mousemove', moveCursor)
@@ -70,10 +68,8 @@ function CustomCursor() {
       window.removeEventListener('mouseup', handleMouseUp)
       document.removeEventListener('mouseenter', handleMouseEnter)
       document.removeEventListener('mouseleave', handleMouseLeave)
-      document.removeEventListener('mouseover', handleMouseOver)
-      document.removeEventListener('mouseout', handleMouseOut)
     }
-  }, [cursorX, cursorY, isVisible])
+  }, [cursorX, cursorY])
 
   if (!isVisible) return null
 
@@ -81,8 +77,8 @@ function CustomCursor() {
     <motion.div
       className={`custom-cursor__ring ${isHovering ? 'custom-cursor__ring--hovering' : ''} ${isClicking ? 'custom-cursor__ring--clicking' : ''}`}
       style={{
-        x: smoothX,
-        y: smoothY,
+        left: smoothX,
+        top: smoothY,
       }}
     />
   )
