@@ -1,0 +1,119 @@
+/* ============================================
+   3D TECH GLOBE STYLES
+   Interactive drag-to-spin sphere matching dark theme
+   ============================================ */
+
+.tech-globe-container {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  max-width: 960px;
+  margin: 0 auto;
+  cursor: grab;
+  user-select: none;
+  overflow: hidden;
+}
+
+.tech-globe-container:active {
+  cursor: grabbing;
+}
+
+/* Background Wireframe Canvas */
+.tech-globe-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 3D Tech Icon Badges */
+.tech-globe-items {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tech-globe-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+  pointer-events: auto;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.tech-globe-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(16, 16, 16, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.tech-globe-item--front:hover .tech-globe-badge {
+  background: rgba(32, 32, 32, 0.98);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.15);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+}
+
+.tech-globe-icon {
+  font-size: 1.35rem;
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+  display: block;
+}
+
+.tech-globe-name {
+  font-family: var(--ff-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* Back-facing items are muted */
+.tech-globe-item--back {
+  filter: blur(0.5px);
+  pointer-events: none;
+}
+
+/* Drag Hint */
+.tech-globe-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--ff-mono, monospace);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .tech-globe-container {
+    height: 380px;
+  }
+  .tech-globe-badge {
+    padding: 6px 10px;
+  }
+  .tech-globe-icon {
+    font-size: 1.1rem;
+  }
+  .tech-globe-name {
+    font-size: 0.65rem;
+  }
+}

@@ -1,11 +1,12 @@
 /* ============================================
    TECH STACK / TECHNICAL ARSENAL STYLES
-   Single Row Marquee + Full Stack Modal
+   3D Rotating Circular Orbit + Full Modal
    ============================================ */
 
 .tech-stack {
   padding: var(--space-3xl) 0;
   position: relative;
+  overflow: hidden;
 }
 
 .tech-stack__container {
@@ -18,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-2xl);
 }
 
 .tech-stack__label {
@@ -46,86 +47,150 @@
 
 .tech-stack__see-all {
   background: transparent;
-  border: none;
-  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-light);
+  color: var(--color-text-secondary);
   font-family: var(--ff-mono, monospace);
   font-size: var(--fs-xs);
   letter-spacing: var(--ls-wider);
   text-transform: uppercase;
   cursor: pointer;
-  padding: 6px 12px;
-  border-radius: var(--radius-xs);
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
   transition: all var(--duration-fast) var(--ease-out);
 }
 
 .tech-stack__see-all:hover {
   color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Single Row Infinite Moving Marquee Container */
-.tech-stack__marquee-box {
+/* ============================================
+   3D ROTATING CIRCLE ORBIT VIEW
+   ============================================ */
+
+.tech-stack__orbit-wrapper {
   position: relative;
   width: 100%;
-  padding: clamp(2rem, 4vw, 3rem) 0;
-  background-color: #080808;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-}
-
-.tech-stack__marquee-track {
+  padding: 4rem 0;
   display: flex;
-  align-items: center;
-  gap: clamp(3rem, 6vw, 5rem);
-  width: max-content;
-  will-change: transform;
-  animation: techMarqueeLeft 28s linear infinite;
-}
-
-.tech-stack__marquee-box:hover .tech-stack__marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes techMarqueeLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-33.333%);
-  }
-}
-
-.tech-stack__item {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
-  transition: all 0.3s ease;
+  align-items: center;
+  min-height: 380px;
+}
+
+.tech-orbit {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  user-select: none;
+}
+
+/* Background 3D Elliptical Ring Guide */
+.tech-orbit__ring {
+  position: absolute;
+  width: 72%;
+  height: 200px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.02) inset;
+}
+
+/* Central Glowing Core Badge */
+.tech-orbit__center {
+  position: absolute;
+  z-index: 50;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(15, 15, 15, 0.95) 75%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow:
+    0 0 35px rgba(255, 255, 255, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  pointer-events: none;
+}
+
+.tech-orbit__center-title {
+  font-family: var(--ff-mono, monospace);
+  font-size: 0.85rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.15em;
+  color: var(--color-text-primary);
+}
+
+.tech-orbit__center-sub {
+  font-family: var(--ff-mono, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* Orbiting Icon Items */
+.tech-orbit__item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -24px;
+  margin-left: -60px;
+  will-change: transform, opacity;
+  transition: filter 0.3s ease;
   cursor: pointer;
 }
 
-.tech-stack__item:hover {
-  color: #ffffff;
-  transform: scale(1.18);
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+.tech-orbit__item:hover {
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.45));
 }
 
-.tech-stack__icon {
-  font-size: clamp(2.2rem, 4vw, 3rem);
+.tech-orbit__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(18, 18, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  transition: all 0.25s ease;
+}
+
+.tech-orbit__item:hover .tech-orbit__badge {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(30, 30, 30, 0.98);
+  transform: scale(1.08);
+}
+
+.tech-orbit__icon {
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+  flex-shrink: 0;
   display: block;
+}
+
+.tech-orbit__name {
+  font-family: var(--ff-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  color: var(--color-text-primary);
+  white-space: nowrap;
 }
 
 
 /* ============================================
    TECH STACK MODAL / FULL VIEW
-   Matching Picture 2
    ============================================ */
 
 .tech-modal {
@@ -195,10 +260,13 @@
 .tech-modal__pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
 .tech-modal__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: #111111;
   border: 1px solid #222222;
   border-radius: var(--radius-xs);
@@ -211,6 +279,11 @@
   user-select: none;
 }
 
+.tech-modal__pill-icon {
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+}
+
 .tech-modal__pill:hover {
   background: #1a1a1a;
   border-color: #444444;
@@ -220,10 +293,17 @@
 }
 
 @media (max-width: 768px) {
-  .tech-stack__marquee-track {
-    gap: 2.2rem;
+  .tech-orbit {
+    height: 280px;
   }
-  .tech-modal__pill {
+  .tech-orbit__badge {
     padding: 6px 12px;
+  }
+  .tech-orbit__name {
+    font-size: 0.65rem;
+  }
+  .tech-orbit__center {
+    width: 88px;
+    height: 88px;
   }
 }
