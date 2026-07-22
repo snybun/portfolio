@@ -4,8 +4,8 @@ import './Navbar.css'
 
 const navLinks = [
   { label: 'About', href: '#about' },
-  { label: 'Process', href: '#process' },
   { label: 'Tech Stack', href: '#tech-stack' },
+  { label: 'Process', href: '#process' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ]
