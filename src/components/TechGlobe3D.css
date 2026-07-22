@@ -1,13 +1,13 @@
 /* ============================================
    3D TECH GLOBE STYLES
-   Interactive drag-to-spin sphere matching dark theme
+   Pure Floating Brand Logos + High-Density Mesh Sphere
    ============================================ */
 
 .tech-globe-container {
   position: relative;
   width: 100%;
-  height: 520px;
-  max-width: 960px;
+  height: 540px;
+  max-width: 980px;
   margin: 0 auto;
   cursor: grab;
   user-select: none;
@@ -27,7 +27,7 @@
   pointer-events: none;
 }
 
-/* 3D Tech Icon Badges */
+/* Floating Logos Layer */
 .tech-globe-items {
   position: absolute;
   inset: 0;
@@ -43,53 +43,55 @@
   transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.tech-globe-badge {
-  display: inline-flex;
+/* Pure Logo Wrapper (No Card Box Frame) */
+.tech-globe-logo-wrapper {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  background: rgba(16, 16, 16, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-full);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(8px);
-  transition: all 0.25s ease;
+  gap: 4px;
   cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  transition: all 0.25s ease;
 }
 
-.tech-globe-item--front:hover .tech-globe-badge {
-  background: rgba(32, 32, 32, 0.98);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: scale(1.15);
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+.tech-globe-item--front:hover .tech-globe-logo-wrapper {
+  transform: scale(1.22);
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.45));
 }
 
-.tech-globe-icon {
-  font-size: 1.35rem;
-  color: var(--color-text-primary);
-  flex-shrink: 0;
+.tech-globe-logo-icon {
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
   display: block;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
 }
 
-.tech-globe-name {
+.tech-globe-logo-label {
   font-family: var(--ff-mono, monospace);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: var(--fw-medium);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--color-text-primary);
+  text-transform: uppercase;
   white-space: nowrap;
-}
-
-/* Back-facing items are muted */
-.tech-globe-item--back {
-  filter: blur(0.5px);
+  background: rgba(0, 0, 0, 0.65);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 2px;
   pointer-events: none;
 }
 
-/* Drag Hint */
+/* Back-facing items dim and blur slightly to emphasize 3D depth */
+.tech-globe-item--back {
+  filter: blur(0.6px) brightness(0.65);
+  pointer-events: none;
+}
+
+/* Drag Hint at bottom */
 .tech-globe-hint {
   position: absolute;
-  bottom: 16px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--ff-mono, monospace);
@@ -97,23 +99,20 @@
   letter-spacing: 0.15em;
   color: var(--color-text-muted);
   background: rgba(0, 0, 0, 0.6);
-  padding: 4px 12px;
+  padding: 4px 14px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .tech-globe-container {
-    height: 380px;
+    height: 400px;
   }
-  .tech-globe-badge {
-    padding: 6px 10px;
+  .tech-globe-logo-icon {
+    font-size: 2.2rem;
   }
-  .tech-globe-icon {
-    font-size: 1.1rem;
-  }
-  .tech-globe-name {
-    font-size: 0.65rem;
+  .tech-globe-logo-label {
+    font-size: 0.6rem;
   }
 }
