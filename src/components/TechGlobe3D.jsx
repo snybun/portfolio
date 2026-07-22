@@ -74,7 +74,7 @@ export default function TechGlobe3D({ items }) {
       const cosY = Math.cos(rotY)
       const sinY = Math.sin(rotY)
 
-      const radius = Math.min(containerSize.width, containerSize.height) * 0.38
+      const radius = Math.min(containerSize.width, containerSize.height) * 0.44
       const cx = containerSize.width / 2
       const cy = containerSize.height / 2
 
@@ -274,15 +274,10 @@ export default function TechGlobe3D({ items }) {
           >
             <div className="tech-globe-logo-wrapper">
               <TechIcon name={item.icon} className="tech-globe-logo-icon" />
-              {item.pz > 0.2 && <span className="tech-globe-logo-label">{item.name}</span>}
+              <span className="tech-globe-logo-label">{item.name}</span>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Drag Hint */}
-      <div className="tech-globe-hint">
-        <span>← DRAG TO ROTATE GLOBE →</span>
       </div>
     </div>
   )
