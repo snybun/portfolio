@@ -88,7 +88,7 @@ function About() {
                 <img
                   className="about__photo"
                   src={aboutImage}
-                  alt="Mark's black and white portfolio visual"
+                  alt="pic ko"
                 />
                 <span className="about__photo-dots" aria-hidden="true" />
               </motion.figure>
