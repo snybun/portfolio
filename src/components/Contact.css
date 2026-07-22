@@ -17,10 +17,27 @@
 
 .contact__header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
-  gap: var(--space-md);
+  gap: var(--space-xs);
   margin-bottom: var(--space-xl);
+  font-family: var(--ff-mono, monospace);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.contact__number {
+  color: var(--color-text-muted);
+}
+
+.contact__divider {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.contact__subtitle {
+  color: var(--color-text-secondary);
 }
 
 .contact__title {

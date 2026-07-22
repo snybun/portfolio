@@ -16,9 +16,26 @@
 
 .work__header {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-md);
+  align-items: center;
+  gap: var(--space-xs);
   margin-bottom: var(--space-xl);
+  font-family: var(--ff-mono, monospace);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.work__number {
+  color: var(--color-text-muted);
+}
+
+.work__divider {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.work__subtitle {
+  color: var(--color-text-secondary);
 }
 
 .work__title {

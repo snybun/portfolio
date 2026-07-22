@@ -29,8 +29,9 @@ function Contact() {
           animate={isInView ? 'visible' : 'hidden'}
           custom={0}
         >
-          <span className="about__number">05</span>
-          <span className="about__subtitle">Get In Touch</span>
+          <span className="contact__number">04</span>
+          <span className="contact__divider">/</span>
+          <span className="contact__subtitle">GET IN TOUCH</span>
         </motion.div>
 
         <motion.h2

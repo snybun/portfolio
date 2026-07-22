@@ -34,24 +34,26 @@
 
 .about__header {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-md);
+  align-items: center;
+  gap: var(--space-xs);
   margin-bottom: var(--space-xl);
+  font-family: var(--ff-mono, monospace);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
 }
 
 .about__number {
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-regular);
   color: var(--color-text-muted);
-  letter-spacing: var(--ls-wide);
+}
+
+.about__divider {
+  color: rgba(255, 255, 255, 0.2);
 }
 
 .about__subtitle {
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-medium);
-  color: var(--color-text-muted);
-  letter-spacing: var(--ls-wider);
-  text-transform: uppercase;
+  color: var(--color-text-secondary);
 }
 
 .about__hello-content {

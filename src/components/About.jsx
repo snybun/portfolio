@@ -155,7 +155,8 @@ function About() {
             custom={0}
           >
             <span className="about__number">01</span>
-            <span className="about__subtitle">Designer & Developer</span>
+            <span className="about__divider">/</span>
+            <span className="about__subtitle">DESIGNER & DEVELOPER</span>
           </motion.div>
 
           <div className="about__hello-content">

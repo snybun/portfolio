@@ -77,8 +77,9 @@ function Work() {
           animate={isInView ? 'visible' : 'hidden'}
           custom={0}
         >
-          <span className="about__number">04</span>
-          <span className="about__subtitle">Selected Work</span>
+          <span className="work__number">03</span>
+          <span className="work__divider">/</span>
+          <span className="work__subtitle">SELECTED WORK</span>
         </motion.div>
 
         <motion.h2
