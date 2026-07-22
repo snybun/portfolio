@@ -88,7 +88,7 @@ function TechStack() {
         {/* Header Bar */}
         <div className="tech-stack__header">
           <div className="tech-stack__label">
-            <span className="tech-stack__number">04</span>
+            <span className="tech-stack__number">02</span>
             <span className="tech-stack__divider">/</span>
             <span className="tech-stack__title">TECHNICAL ARSENAL</span>
           </div>
