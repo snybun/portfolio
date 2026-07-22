@@ -13,6 +13,7 @@ const navLinks = [
 function Navbar({ preloaderDone }) {
   const [time, setTime] = useState('')
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [lastScrollY, setLastScrollY] = useState(0)
   const [hidden, setHidden] = useState(false)
 
   // Live time clock

@@ -142,18 +142,63 @@ export function TechIcon({ name, className = "tech-icon" }) {
         </svg>
       )
     case 'express':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <text x="50%" y="65%" dominantBaseline="middle" textAnchor="middle" fontSize="14" fontWeight="bold" fontFamily="monospace">ex</text>
+        </svg>
+      )
     case 'fastapi':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <path d="M12 0a12 12 0 100 24 12 12 0 000-24zm1 17.5l-4-6h3V6.5l4 6h-3v5z"/>
+        </svg>
+      )
     case 'prisma':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <path d="M18.25 18.5L12 2 5.75 18.5h12.5zM12 6.5l3.5 10H8.5L12 6.5z"/>
+        </svg>
+      )
     case 'postgresql':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+        </svg>
+      )
     case 'mysql':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <text x="50%" y="65%" dominantBaseline="middle" textAnchor="middle" fontSize="11" fontWeight="bold" fontFamily="monospace">SQL</text>
+        </svg>
+      )
     case 'cloudinary':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+        </svg>
+      )
     case 'render':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 4.5l5.5 2.75-5.5 2.75-5.5-2.75L12 6.5z"/>
+        </svg>
+      )
     case 'postman':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm3.7 7.7l-4.5 4.5a.996.996 0 01-1.41 0l-2.5-2.5a.996.996 0 111.41-1.41l1.79 1.79 3.79-3.79a.996.996 0 111.42 1.41z"/>
+        </svg>
+      )
     case 'vscode':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
+          <path d="M23.15 2.587L18.21.21a1.494 1.494 0 00-1.705.291L7.84 8.784 3.1 5.2a.96.96 0 00-1.341.222l-1.5 2.1a.96.96 0 00.207 1.332l3.858 2.977-3.858 2.977a.96.96 0 00-.207 1.332l1.5 2.1a.96.96 0 001.341.222l4.74-3.584 8.665 8.283a1.494 1.494 0 001.705.291l4.94-2.377A1.5 1.5 0 0024 22.422V3.978a1.5 1.5 0 00-.85-1.391zM18.5 16.5l-6-4.5 6-4.5v9z"/>
+        </svg>
+      )
     default:
       return (
         <svg className={className} viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <circle cx="12" cy="12" r="8" opacity="0.6" />
         </svg>
       )
   }
