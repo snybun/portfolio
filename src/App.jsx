@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Process from './components/Process'
+import TechStack from './components/TechStack'
 import Work from './components/Work'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -25,6 +26,7 @@ function App() {
           <Hero preloaderDone={preloaderDone} />
           <About />
           <Process />
+          <TechStack />
           <Work />
           <Contact />
         </main>
