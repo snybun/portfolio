@@ -78,8 +78,8 @@ function Work() {
           custom={0}
         >
           <span className="work__number">03</span>
-          <span className="work__divider">/</span>
-          <span className="work__subtitle">SELECTED WORK</span>
+          <span className="work__slash">/</span>
+          <span className="work__subtitle">PROJECTS</span>
         </motion.div>
 
         <motion.h2

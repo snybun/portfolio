@@ -4,9 +4,9 @@ import './Navbar.css'
 
 const navLinks = [
   { label: 'Hero', href: '#hero' },
-  { label: 'About', href: '#about' },
-  { label: 'Tech Stack', href: '#tech-stack' },
-  { label: 'Work', href: '#work' },
+  { label: 'About Me', href: '#about' },
+  { label: 'Tech Arsenal', href: '#tech-stack' },
+  { label: 'Projects', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ]
 

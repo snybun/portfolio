@@ -90,7 +90,7 @@ function TechStack() {
           <div className="tech-stack__label">
             <span className="tech-stack__number">02</span>
             <span className="tech-stack__divider">/</span>
-            <span className="tech-stack__title">TECHNICAL ARSENAL</span>
+            <span className="tech-stack__title">TECH ARSENAL</span>
           </div>
 
           <button className="tech-stack__see-all" onClick={() => setShowAll(true)}>

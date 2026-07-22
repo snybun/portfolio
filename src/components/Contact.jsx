@@ -30,7 +30,7 @@ function Contact() {
           custom={0}
         >
           <span className="contact__number">04</span>
-          <span className="contact__divider">/</span>
+          <span className="contact__slash">/</span>
           <span className="contact__subtitle">GET IN TOUCH</span>
         </motion.div>
 
