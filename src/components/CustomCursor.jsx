@@ -15,6 +15,11 @@ function CustomCursor() {
   const smoothX = useSpring(cursorX, springConfig)
   const smoothY = useSpring(cursorY, springConfig)
 
+  // Fluid spring for soft ambient glow spotlight behind cursor
+  const glowSpringConfig = { damping: 36, stiffness: 160, mass: 0.9 }
+  const glowX = useSpring(cursorX, glowSpringConfig)
+  const glowY = useSpring(cursorY, glowSpringConfig)
+
   useEffect(() => {
     const hasHover = window.matchMedia('(hover: hover)').matches
     if (!hasHover) return
@@ -74,13 +79,22 @@ function CustomCursor() {
   if (!isVisible) return null
 
   return (
-    <motion.div
-      className={`custom-cursor__ring ${isHovering ? 'custom-cursor__ring--hovering' : ''} ${isClicking ? 'custom-cursor__ring--clicking' : ''}`}
-      style={{
-        left: smoothX,
-        top: smoothY,
-      }}
-    />
+    <>
+      <motion.div
+        className="custom-cursor__glow"
+        style={{
+          left: glowX,
+          top: glowY,
+        }}
+      />
+      <motion.div
+        className={`custom-cursor__ring ${isHovering ? 'custom-cursor__ring--hovering' : ''} ${isClicking ? 'custom-cursor__ring--clicking' : ''}`}
+        style={{
+          left: smoothX,
+          top: smoothY,
+        }}
+      />
+    </>
   )
 }
 
