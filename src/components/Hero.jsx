@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import Globe3D from './Globe3D'
 import './Hero.css'
 
 function Hero({ preloaderDone }) {
@@ -66,6 +67,7 @@ function Hero({ preloaderDone }) {
 
   return (
     <section className="hero" id="hero" ref={heroRef}>
+      <Globe3D />
       <motion.div
         className="hero__reveal-panel"
         initial={{ scaleY: 1 }}

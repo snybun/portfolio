@@ -1,0 +1,28 @@
+/* ============================================
+   3D GLOBE BACKGROUND STYLES
+   ============================================ */
+
+.globe-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: auto; /* Allows cursor rotation interaction */
+  overflow: hidden;
+  opacity: 0.68;
+  transition: opacity 0.8s ease;
+}
+
+.globe-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* On small screens, keep globe centered and subtle */
+@media (max-width: 768px) {
+  .globe-container {
+    opacity: 0.45;
+  }
+}
