@@ -5,6 +5,7 @@ import './Navbar.css'
 const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Process', href: '#process' },
+  { label: 'Tech Stack', href: '#tech-stack' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -12,7 +13,6 @@ const navLinks = [
 function Navbar({ preloaderDone }) {
   const [time, setTime] = useState('')
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [lastScrollY, setLastScrollY] = useState(0)
   const [hidden, setHidden] = useState(false)
 
   // Live time clock
