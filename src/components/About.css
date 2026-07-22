@@ -90,21 +90,63 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  overflow: hidden;
+  overflow: visible;
+  padding: 1rem 0;
+}
+
+.about__photo-3d-perspective {
+  perspective: 1000px;
+  width: min(100%, 360px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .about__photo-wrapper {
   position: relative;
-  width: min(100%, 360px);
+  width: 100%;
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-md);
-  overflow: hidden;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 38%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), transparent 45%),
     var(--color-bg-card);
   border: 1px solid var(--color-border);
   isolation: isolate;
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
+  transform-style: preserve-3d;
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  cursor: pointer;
+  will-change: transform;
+  transition: border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+.about__photo-wrapper--hovered {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.65),
+    0 0 30px rgba(255, 255, 255, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+.about__photo-shadow {
+  position: absolute;
+  inset: 12px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-md);
+  filter: blur(24px);
+  transform: translateZ(-35px);
+  pointer-events: none;
+}
+
+.about__photo-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(40px);
+  transform-style: preserve-3d;
+  pointer-events: none;
 }
 
 .about__photo {
@@ -115,12 +157,21 @@
   filter: grayscale(1) contrast(1.24) brightness(0.92);
   opacity: 0.88;
   transform: scale(1.08);
+  transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.about__photo--hovered {
+  filter: grayscale(0) contrast(1.1) brightness(1.05);
+  opacity: 1;
+  transform: scale(1.12);
 }
 
 .about__photo-dots {
   position: absolute;
   inset: 0;
   z-index: 2;
+  border-radius: var(--radius-md);
   background-image:
     radial-gradient(rgba(255, 255, 255, 0.5) 0.75px, transparent 0.75px),
     radial-gradient(rgba(0, 0, 0, 0.78) 1px, transparent 1px);
@@ -129,17 +180,30 @@
   mix-blend-mode: overlay;
   opacity: 0.72;
   pointer-events: none;
+  transform: translateZ(20px);
 }
 
-.about__photo-wrapper::after {
-  content: '';
+.about__photo-border-glow {
   position: absolute;
   inset: 0;
   z-index: 3;
+  border-radius: var(--radius-md);
   background:
-    linear-gradient(180deg, rgba(10, 10, 10, 0.05), rgba(10, 10, 10, 0.62)),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 34%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    linear-gradient(0deg, rgba(10, 10, 10, 0.6) 0%, transparent 50%);
   pointer-events: none;
+  transform: translateZ(30px);
+}
+
+.about__photo-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  transform: translateZ(50px);
+  transition: opacity 0.3s ease;
 }
 
 .about__divider {
