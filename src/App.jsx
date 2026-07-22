@@ -25,8 +25,8 @@ function App() {
         <main className="main-content">
           <Hero preloaderDone={preloaderDone} />
           <About />
-          <Process />
           <TechStack />
+          <Process />
           <Work />
           <Contact />
         </main>

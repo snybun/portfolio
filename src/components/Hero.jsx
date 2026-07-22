@@ -104,7 +104,7 @@ function Hero({ preloaderDone }) {
       >
         <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
           <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
-            creative{' '}
+            ui/ux{' '}
           </motion.span>
         </span>
         <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
