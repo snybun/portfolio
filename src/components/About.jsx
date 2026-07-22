@@ -1,6 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
-import aboutImage from '../assets/hero.png'
+import aboutImage from '../assets/gyu.jpg'
 import './About.css'
 
 function ProfilePicture({ src, alt }) {
