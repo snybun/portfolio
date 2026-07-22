@@ -3,7 +3,6 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
-import Process from './components/Process'
 import TechStack from './components/TechStack'
 import Work from './components/Work'
 import Contact from './components/Contact'
@@ -26,7 +25,6 @@ function App() {
           <Hero preloaderDone={preloaderDone} />
           <About />
           <TechStack />
-          <Process />
           <Work />
           <Contact />
         </main>

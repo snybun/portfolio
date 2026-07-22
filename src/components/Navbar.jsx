@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import './Navbar.css'
 
 const navLinks = [
+  { label: 'Hero', href: '#hero' },
   { label: 'About', href: '#about' },
   { label: 'Tech Stack', href: '#tech-stack' },
-  { label: 'Process', href: '#process' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ]
