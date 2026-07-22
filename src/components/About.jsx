@@ -1,7 +1,116 @@
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { useRef, useState } from 'react'
 import aboutImage from '../assets/hero.png'
 import './About.css'
+
+function ProfilePicture({ src, alt }) {
+  const cardRef = useRef(null)
+  const [isHovered, setIsHovered] = useState(false)
+
+  // Motion values for tracking relative cursor coordinates (-0.5 to 0.5)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  // Smooth springs for fluid 3D motion response
+  const mouseXSpring = useSpring(x, { stiffness: 240, damping: 20 })
+  const mouseYSpring = useSpring(y, { stiffness: 240, damping: 20 })
+
+  // Transform normalized mouse position to 3D tilt angles
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [16, -16])
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-16, 16])
+
+  // Parallax translation offsets for dynamic shadow depth
+  const shadowX = useTransform(mouseXSpring, [-0.5, 0.5], [-18, 18])
+  const shadowY = useTransform(mouseYSpring, [-0.5, 0.5], [-18, 18])
+
+  // Dynamic light reflection/glare positioning
+  const glareX = useTransform(mouseXSpring, [-0.5, 0.5], [15, 85])
+  const glareY = useTransform(mouseYSpring, [-0.5, 0.5], [15, 85])
+
+  const glareBg = useTransform(
+    [glareX, glareY],
+    ([gx, gy]) =>
+      `radial-gradient(circle at ${gx}% ${gy}%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 65%)`
+  )
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const width = rect.width
+    const height = rect.height
+
+    const mouseX = e.clientX - rect.left
+    const mouseY = e.clientY - rect.top
+
+    const xPct = mouseX / width - 0.5
+    const yPct = mouseY / height - 0.5
+
+    x.set(xPct)
+    y.set(yPct)
+  }
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+    x.set(0)
+    y.set(0)
+  }
+
+  return (
+    <div className="about__photo-3d-perspective">
+      <motion.div
+        ref={cardRef}
+        className={`about__photo-wrapper ${isHovered ? 'about__photo-wrapper--hovered' : ''}`}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: 'preserve-3d',
+        }}
+        whileHover={{ scale: 1.04 }}
+        transition={{ scale: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } }}
+      >
+        {/* Dynamic 3D depth shadow */}
+        <motion.div
+          className="about__photo-shadow"
+          style={{
+            x: shadowX,
+            y: shadowY,
+          }}
+        />
+
+        {/* Floating image layer popped out in 3D */}
+        <div className="about__photo-layer">
+          <img
+            className={`about__photo ${isHovered ? 'about__photo--hovered' : ''}`}
+            src={src}
+            alt={alt}
+          />
+        </div>
+
+        {/* Dot pattern floating layer */}
+        <span className="about__photo-dots" aria-hidden="true" />
+
+        {/* Ambient border glow */}
+        <div className="about__photo-border-glow" aria-hidden="true" />
+
+        {/* Interactive Specular Glare light source */}
+        <motion.div
+          className="about__photo-glare"
+          style={{
+            background: glareBg,
+            opacity: isHovered ? 1 : 0,
+          }}
+        />
+      </motion.div>
+    </div>
+  )
+}
 
 function About() {
   const helloRef = useRef(null)
@@ -80,18 +189,7 @@ function About() {
               animate={helloInView ? 'visible' : 'hidden'}
               custom={0.3}
             >
-              <motion.figure
-                className="about__photo-wrapper"
-                whileHover={{ y: -8, scale: 1.015 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <img
-                  className="about__photo"
-                  src={aboutImage}
-                  alt="pic ko"
-                />
-                <span className="about__photo-dots" aria-hidden="true" />
-              </motion.figure>
+              <ProfilePicture src={aboutImage} alt="pic ko" />
             </motion.div>
           </div>
         </div>
