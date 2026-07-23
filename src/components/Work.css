@@ -20,10 +20,7 @@
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  background-color: var(--color-bg-primary, #060606);
-  background-image:
-    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
+  background: transparent;
 }
 
 .work__container {
