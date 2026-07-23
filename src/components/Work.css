@@ -1,11 +1,11 @@
 /* ============================================
    WORK / PROJECTS SECTION STYLES
-   Pinned Scroll Sticky Deck with Left/Right Swiping Cards
+   Clean 3D Stacked Card Deck
    ============================================ */
 
 /* Pinned container height controls scroll duration */
 .work-pinned-section {
-  height: 320vh;
+  height: 300vh;
   position: relative;
   overflow: visible;
 }
@@ -33,8 +33,8 @@
   padding: 0 var(--space-lg);
   display: flex;
   flex-direction: column;
-  height: 90vh;
-  justify-content: space-between;
+  justify-content: center;
+  gap: var(--space-xl);
 }
 
 /* Header bar */
@@ -42,7 +42,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
 }
 
 .work__header-label {
@@ -96,10 +95,9 @@
   line-height: var(--lh-snug);
   letter-spacing: var(--ls-tight);
   color: var(--color-text-primary);
-  margin-bottom: 0.5rem;
 }
 
-/* Swiping stage container */
+/* Stacked cards stage container */
 .work__cards-stage {
   position: relative;
   width: 100%;
@@ -109,7 +107,7 @@
   perspective: 1200px;
 }
 
-/* Individual swiping card */
+/* Individual card inside stack */
 .work__card {
   position: absolute;
   inset: 0;
@@ -120,7 +118,7 @@
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg, 24px);
-  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  padding: clamp(1.6rem, 3.5vw, 2.5rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -288,106 +286,10 @@
   transform: translate(3px, -3px);
 }
 
-.work__card-swipe-direction {
-  font-family: var(--ff-mono, monospace);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.35);
-  text-transform: uppercase;
-}
-
-/* Bottom pagination & scroll indicator */
-.work__pagination {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.work__dots {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.work__dot {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.25s ease;
-}
-
-.work__dot:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.work__dot-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.work__dot--active {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.work__dot--active .work__dot-indicator {
-  background: #ffffff;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-  transform: scale(1.2);
-}
-
-.work__dot-label {
-  font-family: var(--ff-mono, monospace);
-  font-size: var(--fs-xs);
-  color: var(--color-text-secondary);
-}
-
-.work__scroll-hint {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--ff-mono, monospace);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-}
-
-.work__scroll-hint-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-text-muted);
-  animation: pulseDot 2s infinite ease-in-out;
-}
-
-@keyframes pulseDot {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.3);
-  }
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .work-pinned-section {
-    height: 380vh;
+    height: 320vh;
   }
 
   .work__cards-stage {
@@ -396,13 +298,5 @@
 
   .work__card {
     padding: 1.25rem;
-  }
-
-  .work__card-swipe-direction {
-    display: none;
-  }
-
-  .work__scroll-hint span:last-child {
-    display: none;
   }
 }

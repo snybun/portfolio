@@ -43,37 +43,43 @@ const projects = [
   },
 ]
 
-function ProjectCard({ project, index, total, progress, activeIndex }) {
-  // Configured alternating swipe motion curves:
-  // Card 0 (01): Starts centered, swipes out to LEFT
-  // Card 1 (02): Enters from RIGHT, stays centered, swipes out to RIGHT
-  // Card 2 (03): Enters from LEFT, stays centered till section end
-  let xRange, rotateRange, opacityRange, scaleRange, progressInput
+function StackedCard({ project, index, total, progress, activeIndex }) {
+  // Stack deck animation configuration:
+  // Card 0 (01): Top of stack (zIndex: 3), swipes LEFT on scroll
+  // Card 1 (02): Middle of stack (zIndex: 2), moves up to front, swipes RIGHT on scroll
+  // Card 2 (03): Bottom of stack (zIndex: 1), moves up to front
+  let xRange, yRange, rotateRange, opacityRange, scaleRange, progressInput
 
   if (index === 0) {
-    progressInput = [0.0, 0.18, 0.38, 1.0]
+    progressInput = [0.0, 0.12, 0.36, 1.0]
     xRange = ['0%', '0%', '-120%', '-120%']
+    yRange = ['0px', '0px', '0px', '0px']
     rotateRange = ['0deg', '0deg', '-12deg', '-12deg']
     opacityRange = [1, 1, 0, 0]
-    scaleRange = [1, 1, 0.88, 0.88]
+    scaleRange = [1, 1, 1, 1]
   } else if (index === 1) {
-    progressInput = [0.0, 0.22, 0.40, 0.58, 0.74, 1.0]
-    xRange = ['120%', '120%', '0%', '0%', '120%', '120%']
-    rotateRange = ['12deg', '12deg', '0deg', '0deg', '12deg', '12deg']
-    opacityRange = [0, 0, 1, 1, 0, 0]
-    scaleRange = [0.88, 0.88, 1, 1, 0.88, 0.88]
+    progressInput = [0.0, 0.12, 0.36, 0.48, 0.72, 1.0]
+    xRange = ['0%', '0%', '0%', '0%', '120%', '120%']
+    yRange = ['20px', '20px', '0px', '0px', '0px', '0px']
+    rotateRange = ['0deg', '0deg', '0deg', '0deg', '12deg', '12deg']
+    opacityRange = [0.65, 0.65, 1, 1, 0, 0]
+    scaleRange = [0.94, 0.94, 1, 1, 1, 1]
   } else {
-    progressInput = [0.0, 0.54, 0.72, 1.0]
-    xRange = ['-120%', '-120%', '0%', '0%']
-    rotateRange = ['-12deg', '-12deg', '0deg', '0deg']
-    opacityRange = [0, 0, 1, 1]
-    scaleRange = [0.88, 0.88, 1, 1]
+    progressInput = [0.0, 0.12, 0.36, 0.48, 0.72, 1.0]
+    xRange = ['0%', '0%', '0%', '0%', '0%', '0%']
+    yRange = ['40px', '40px', '20px', '20px', '0px', '0px']
+    rotateRange = ['0deg', '0deg', '0deg', '0deg', '0deg', '0deg']
+    opacityRange = [0.35, 0.35, 0.65, 0.65, 1, 1]
+    scaleRange = [0.88, 0.88, 0.94, 0.94, 1, 1]
   }
 
   const x = useTransform(progress, progressInput, xRange)
+  const y = useTransform(progress, progressInput, yRange)
   const rotate = useTransform(progress, progressInput, rotateRange)
   const opacity = useTransform(progress, progressInput, opacityRange)
   const scale = useTransform(progress, progressInput, scaleRange)
+
+  const zIndex = total - index
 
   const scrollToSection = (e, href) => {
     if (href.startsWith('#')) {
@@ -90,12 +96,14 @@ function ProjectCard({ project, index, total, progress, activeIndex }) {
       className={`work__card ${activeIndex === index ? 'work__card--active' : ''}`}
       style={{
         x,
+        y,
         rotate,
         opacity,
         scale,
+        zIndex,
       }}
     >
-      {/* Glow highlight inside card */}
+      {/* Subtle card glow highlight */}
       <div className="work__card-glow" aria-hidden="true" />
 
       <div className="work__card-header">
@@ -137,9 +145,6 @@ function ProjectCard({ project, index, total, progress, activeIndex }) {
             </a>
           ))}
         </div>
-        <div className="work__card-swipe-direction">
-          {index === 0 ? '← Swipes Left' : index === 1 ? 'Swipes Right →' : '← Swipes Left'}
-        </div>
       </div>
     </motion.article>
   )
@@ -164,20 +169,11 @@ function Work() {
     }
   })
 
-  const scrollToCard = (index) => {
-    if (!sectionRef.current) return
-    const sectionTop = sectionRef.current.offsetTop
-    const sectionHeight = sectionRef.current.offsetHeight - window.innerHeight
-    const targetProgress = index === 0 ? 0.05 : index === 1 ? 0.48 : 0.88
-    const targetY = sectionTop + targetProgress * sectionHeight
-    window.scrollTo({ top: targetY, behavior: 'smooth' })
-  }
-
   return (
     <section className="work-pinned-section" id="work" ref={sectionRef}>
       <div className="work-sticky-wrapper">
         <div className="work__container">
-          {/* Header */}
+          {/* Section Header */}
           <div className="work__header-bar">
             <div className="work__header-label">
               <span className="work__number">04</span>
@@ -194,10 +190,10 @@ function Work() {
 
           <h2 className="work__title">Projects I've brought to life.</h2>
 
-          {/* Cards Swiping Stage */}
+          {/* Stacked Cards Stage */}
           <div className="work__cards-stage">
             {projects.map((project, index) => (
-              <ProjectCard
+              <StackedCard
                 key={project.number}
                 project={project}
                 index={index}
@@ -206,28 +202,6 @@ function Work() {
                 activeIndex={activeIndex}
               />
             ))}
-          </div>
-
-          {/* Interactive Navigation Dots & Scroll Indicator */}
-          <div className="work__pagination">
-            <div className="work__dots">
-              {projects.map((p, idx) => (
-                <button
-                  key={idx}
-                  className={`work__dot ${activeIndex === idx ? 'work__dot--active' : ''}`}
-                  onClick={() => scrollToCard(idx)}
-                  aria-label={`View ${p.name}`}
-                >
-                  <span className="work__dot-indicator" />
-                  <span className="work__dot-label">{p.number}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="work__scroll-hint">
-              <span className="work__scroll-hint-dot" />
-              <span>Scroll down to swipe cards</span>
-            </div>
           </div>
         </div>
       </div>
