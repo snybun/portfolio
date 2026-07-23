@@ -103,9 +103,6 @@ function StackedCard({ project, index, total, progress, activeIndex }) {
         zIndex,
       }}
     >
-      {/* Subtle card glow highlight */}
-      <div className="work__card-glow" aria-hidden="true" />
-
       <div className="work__card-header">
         <div className="work__card-badges">
           <span className="work__card-number">{project.number}</span>
