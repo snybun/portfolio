@@ -74,7 +74,9 @@ export default function TechGlobe3D({ items }) {
       const cosY = Math.cos(rotY)
       const sinY = Math.sin(rotY)
 
-      const radius = Math.min(containerSize.width, containerSize.height) * 0.44
+      const baseRadius = Math.min(containerSize.width, containerSize.height)
+      const radiusX = baseRadius * 0.56 // Wider horizontal axis for oval shape
+      const radiusY = baseRadius * 0.38 // Vertical axis
       const cx = containerSize.width / 2
       const cy = containerSize.height / 2
 
@@ -90,8 +92,8 @@ export default function TechGlobe3D({ items }) {
         const z2 = y * sinX + z1 * cosX
 
         const scale = 1 / (1 + z2 * 0.38)
-        const px = cx + x1 * radius * scale
-        const py = cy + y2 * radius * scale
+        const px = cx + x1 * radiusX * scale
+        const py = cy + y2 * radiusY * scale
 
         // Depth opacity & scale
         const opacity = z2 > 0 ? 0.7 + z2 * 0.3 : 0.1 + (z2 + 1) * 0.25
@@ -130,8 +132,8 @@ export default function TechGlobe3D({ items }) {
 
             const rScale = 1 / (1 + rz2 * 0.38)
             return {
-              rpx: cx + rx1 * radius * rScale,
-              rpy: cy + ry2 * radius * rScale,
+              rpx: cx + rx1 * radiusX * rScale,
+              rpy: cy + ry2 * radiusY * rScale,
               rz2,
             }
           }
@@ -194,15 +196,15 @@ export default function TechGlobe3D({ items }) {
             ctx.stroke()
           }
 
-          // 3. Atmosphere Outer Ambient Glow Gradient
-          const glowGrad = ctx.createRadialGradient(cx, cy, radius * 0.7, cx, cy, radius * 1.25)
+          // 3. Atmosphere Outer Ambient Glow Gradient (Oval shape)
+          const glowGrad = ctx.createRadialGradient(cx, cy, radiusX * 0.6, cx, cy, radiusX * 1.25)
           glowGrad.addColorStop(0, 'rgba(100, 120, 255, 0.04)')
           glowGrad.addColorStop(0.5, 'rgba(100, 120, 255, 0.015)')
           glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
           ctx.fillStyle = glowGrad
           ctx.beginPath()
-          ctx.arc(cx, cy, radius * 1.25, 0, Math.PI * 2)
+          ctx.ellipse(cx, cy, radiusX * 1.2, radiusY * 1.2, 0, 0, Math.PI * 2)
           ctx.fill()
         }
       }

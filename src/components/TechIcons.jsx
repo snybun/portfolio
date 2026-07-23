@@ -1,7 +1,44 @@
-// Official 100% accurate vector brand icons with authentic colors (from Simple Icons / Devicon)
-export function TechIcon({ name, className = "tech-icon" }) {
+// Automatically detect any PNG, JPG, WEBP, or SVG icons placed in /src/assets/tech/
+const customTechImages = import.meta.glob('/src/assets/tech/*.{png,jpg,jpeg,webp,svg}', {
+  eager: true,
+  import: 'default',
+})
+
+// Build lookup map for custom images by filename without extension
+const PNG_ICON_MAP = {}
+Object.entries(customTechImages).forEach(([path, src]) => {
+  const filename = path.split('/').pop().split('.')[0].toLowerCase().trim()
+  PNG_ICON_MAP[filename] = src
+})
+
+export function TechIcon({ name, image, className = "tech-icon" }) {
   const key = name?.toLowerCase()?.trim()
 
+  // 1. If explicit image prop is passed, render it directly
+  if (image) {
+    return (
+      <img
+        src={image}
+        alt={name || 'tech icon'}
+        className={className}
+        style={{ width: '1em', height: '1em', objectFit: 'contain', display: 'block' }}
+      />
+    )
+  }
+
+  // 2. If a matching PNG file is found in src/assets/tech/, render the PNG image
+  if (key && PNG_ICON_MAP[key]) {
+    return (
+      <img
+        src={PNG_ICON_MAP[key]}
+        alt={name}
+        className={className}
+        style={{ width: '1em', height: '1em', objectFit: 'contain', display: 'block' }}
+      />
+    )
+  }
+
+  // 3. Fallback to vector brand SVG icons
   switch (key) {
     case 'html':
     case 'html5':
