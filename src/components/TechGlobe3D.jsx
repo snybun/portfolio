@@ -149,62 +149,80 @@ export default function TechGlobe3D({ items }) {
           ctx.scale(dpr, dpr)
           ctx.clearRect(0, 0, containerSize.width, containerSize.height)
 
-          // 1. Draw Latitudinal Rings (16 rings)
-          const latRingsCount = 16
-          for (let i = 1; i < latRingsCount; i++) {
-            const latY = -1 + (i / latRingsCount) * 2
-            const rRing = Math.sqrt(Math.max(0, 1 - latY * latY))
-            ctx.beginPath()
-            let first = true
-            for (let a = 0; a <= Math.PI * 2; a += 0.08) {
-              const rx = Math.cos(a) * rRing
-              const rz = Math.sin(a) * rRing
-              const p = project3D(rx, latY, rz)
-
-              if (p.pz > -0.7) {
-                const alpha = (p.pz + 0.7) * 0.075
-                ctx.strokeStyle = `rgba(130, 145, 230, ${alpha})`
-                ctx.lineWidth = 0.6
-                if (first) {
-                  ctx.moveTo(p.px, p.py)
-                  first = false
-                } else {
-                  ctx.lineTo(p.px, p.py)
-                }
-              } else {
-                first = true
-              }
-            }
-            ctx.stroke()
-          }
-
-          // 2. Draw Longitudinal Meridians (16 meridians)
-          const lonLinesCount = 16
-          for (let i = 0; i < lonLinesCount; i++) {
-            const lonAngle = (i / lonLinesCount) * Math.PI * 2
-            ctx.beginPath()
-            let first = true
-            for (let latA = -Math.PI / 2; latA <= Math.PI / 2; latA += 0.08) {
+          // 1. Draw Longitudinal Meridians (Lines connecting north & south poles)
+          const lonLines = 18
+          for (let j = 0; j < lonLines; j++) {
+            const lonAngle = (j / lonLines) * Math.PI * 2
+            let prevP = null
+            for (let latStep = 0; latStep <= 32; latStep++) {
+              const latA = -Math.PI / 2 + (latStep / 32) * Math.PI
               const rx = Math.cos(latA) * Math.cos(lonAngle)
               const ry = Math.sin(latA)
               const rz = Math.cos(latA) * Math.sin(lonAngle)
               const p = project3D(rx, ry, rz)
 
-              if (p.pz > -0.7) {
-                const alpha = (p.pz + 0.7) * 0.075
-                ctx.strokeStyle = `rgba(130, 145, 230, ${alpha})`
-                ctx.lineWidth = 0.6
-                if (first) {
-                  ctx.moveTo(p.px, p.py)
-                  first = false
-                } else {
-                  ctx.lineTo(p.px, p.py)
-                }
-              } else {
-                first = true
+              if (prevP) {
+                const avgZ = (prevP.pz + p.pz) / 2
+                const alpha = avgZ > 0 ? 0.11 + avgZ * 0.07 : 0.025 + (avgZ + 1) * 0.03
+                ctx.strokeStyle = `rgba(90, 175, 245, ${alpha})`
+                ctx.lineWidth = 0.65
+                ctx.beginPath()
+                ctx.moveTo(prevP.px, prevP.py)
+                ctx.lineTo(p.px, p.py)
+                ctx.stroke()
               }
+              prevP = p
             }
-            ctx.stroke()
+          }
+
+          // 2. Draw Latitudinal Parallel Rings
+          const latRings = 12
+          for (let i = 1; i < latRings; i++) {
+            const latA = -Math.PI / 2 + (i / latRings) * Math.PI
+            const ry = Math.sin(latA)
+            const rRing = Math.cos(latA)
+            let prevP = null
+
+            for (let lonStep = 0; lonStep <= 40; lonStep++) {
+              const a = (lonStep / 40) * Math.PI * 2
+              const rx = Math.cos(a) * rRing
+              const rz = Math.sin(a) * rRing
+              const p = project3D(rx, ry, rz)
+
+              if (prevP) {
+                const avgZ = (prevP.pz + p.pz) / 2
+                const alpha = avgZ > 0 ? 0.11 + avgZ * 0.07 : 0.025 + (avgZ + 1) * 0.03
+                ctx.strokeStyle = `rgba(90, 175, 245, ${alpha})`
+                ctx.lineWidth = 0.65
+                ctx.beginPath()
+                ctx.moveTo(prevP.px, prevP.py)
+                ctx.lineTo(p.px, p.py)
+                ctx.stroke()
+              }
+              prevP = p
+            }
+          }
+
+          // 3. Draw Grid Intersection Node Dots (matching user reference image)
+          for (let i = 1; i < latRings; i++) {
+            const latA = -Math.PI / 2 + (i / latRings) * Math.PI
+            const ry = Math.sin(latA)
+            const rRing = Math.cos(latA)
+
+            for (let j = 0; j < lonLines; j++) {
+              const a = (j / lonLines) * Math.PI * 2
+              const rx = Math.cos(a) * rRing
+              const rz = Math.sin(a) * rRing
+              const p = project3D(rx, ry, rz)
+
+              const alpha = p.pz > 0 ? 0.22 + p.pz * 0.22 : 0.04 + (p.pz + 1) * 0.06
+              const dotRadius = p.pz > 0 ? 1.1 + p.pz * 0.6 : 0.75
+
+              ctx.fillStyle = `rgba(110, 195, 255, ${alpha})`
+              ctx.beginPath()
+              ctx.arc(p.px, p.py, dotRadius, 0, Math.PI * 2)
+              ctx.fill()
+            }
           }
         }
       }

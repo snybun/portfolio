@@ -4,7 +4,7 @@
    ============================================ */
 
 .tech-stack {
-  padding: var(--space-3xl) 0;
+  padding: var(--space-xl) 0;
   position: relative;
   overflow: hidden;
 }
