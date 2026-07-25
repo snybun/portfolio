@@ -90,9 +90,8 @@ export default function TechGlobe3D({ items }) {
       const sinY = Math.sin(rotY)
 
       const baseRadius = Math.min(containerSize.width, containerSize.height)
-      const globeRadius = baseRadius * 0.48 // True equal 3D sphere radius centered in middle
-      const radiusX = globeRadius
-      const radiusY = globeRadius
+      const radiusX = baseRadius * 0.58 // Oval horizontal radius
+      const radiusY = baseRadius * 0.38 // Oval vertical radius
       const cx = containerSize.width / 2
       const cy = containerSize.height / 2
 
