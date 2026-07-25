@@ -60,11 +60,11 @@
   filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.6));
 }
 
-/* Enlarged logos with optical size balancing */
+/* Optically balanced logos matching Node.js size */
 .tech-globe-logo-icon {
-  width: 1.05rem;
-  height: 1.05rem;
-  font-size: 1.05rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  font-size: 1.15rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,22 +75,22 @@
 .tech-globe-logo-icon img {
   width: 100% !important;
   height: 100% !important;
-  max-width: 1.05rem !important;
-  max-height: 1.05rem !important;
+  max-width: 1.15rem !important;
+  max-height: 1.15rem !important;
   object-fit: contain !important;
   display: block;
 }
 
-/* Compact exempted logos: Framer, Bootstrap, JS, TS, Node.js */
-.tech-globe-logo-icon--compact {
-  width: 0.78rem !important;
-  height: 0.78rem !important;
+/* Solid Tile Logos (JS, TS, HTML, CSS, Bootstrap) scaled to match optical Node.js size */
+.tech-globe-logo-icon--tile {
+  width: 0.72rem !important;
+  height: 0.72rem !important;
 }
 
-.tech-globe-logo-icon--compact svg,
-.tech-globe-logo-icon--compact img {
-  max-width: 0.78rem !important;
-  max-height: 0.78rem !important;
+.tech-globe-logo-icon--tile svg,
+.tech-globe-logo-icon--tile img {
+  max-width: 0.72rem !important;
+  max-height: 0.72rem !important;
 }
 
 /* Hide label by default for all logos */
@@ -130,16 +130,19 @@
   .tech-globe-container {
     height: 440px;
   }
+
   .tech-globe-logo-icon {
     width: 0.65rem;
     height: 0.65rem;
     font-size: 0.65rem;
   }
+
   .tech-globe-logo-icon svg,
   .tech-globe-logo-icon img {
     max-width: 0.65rem !important;
     max-height: 0.65rem !important;
   }
+
   .tech-globe-logo-label {
     font-size: 0.58rem;
   }

@@ -121,9 +121,9 @@ export default function TechGlobe3D({ items }) {
       const projected = spherePointsRef.current.map((pt) => {
         const p = project3D(pt.vec.x, pt.vec.y, pt.vec.z)
 
-        // Subtle depth opacity & compact scale factor for generous icon gaps
+        // Equal depth opacity & uniform scale factor matching Node.js size
         const opacity = p.pz > 0 ? 0.85 + p.pz * 0.15 : 0.2 + (p.pz + 1) * 0.25
-        const itemScale = p.pz > 0 ? 0.65 + p.pz * 0.12 : 0.42 + (p.pz + 1) * 0.1
+        const itemScale = p.pz > 0 ? 0.7 + p.pz * 0.15 : 0.45 + (p.pz + 1) * 0.12
         const zIndex = Math.round((p.pz + 1) * 100)
 
         return {
@@ -267,9 +267,9 @@ export default function TechGlobe3D({ items }) {
     isDraggingRef.current = false
   }
 
-  const isCompactIcon = (iconName = '') => {
-    const compactList = ['framer', 'framer motion', 'bootstrap', 'js', 'javascript', 'ts', 'typescript', 'nodejs', 'node.js']
-    return compactList.includes(iconName.toLowerCase())
+  const isSolidTileIcon = (iconName = '') => {
+    const tileList = ['javascript', 'js', 'typescript', 'ts', 'bootstrap', 'html5', 'html', 'css', 'css3', 'figma', 'docker']
+    return tileList.includes(iconName.toLowerCase())
   }
 
   return (
@@ -304,7 +304,7 @@ export default function TechGlobe3D({ items }) {
             }}
           >
             <div className="tech-globe-logo-wrapper">
-              <TechIcon name={item.icon} className={`tech-globe-logo-icon ${isCompactIcon(item.icon) ? 'tech-globe-logo-icon--compact' : ''}`} />
+              <TechIcon name={item.icon} className={`tech-globe-logo-icon ${isSolidTileIcon(item.icon) ? 'tech-globe-logo-icon--tile' : ''}`} />
             </div>
             <span className="tech-globe-logo-label">{item.name}</span>
           </div>
