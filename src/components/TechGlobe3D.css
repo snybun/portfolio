@@ -62,21 +62,21 @@
 
 /* Sleek smaller logos - uniform equal size */
 .tech-globe-logo-icon {
-  width: 1.6rem;
-  height: 1.6rem;
-  font-size: 1.6rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
 }
 
 .tech-globe-logo-icon svg,
 .tech-globe-logo-icon img {
   width: 100% !important;
   height: 100% !important;
-  max-width: 1.6rem !important;
-  max-height: 1.6rem !important;
+  max-width: 1.2rem !important;
+  max-height: 1.2rem !important;
   object-fit: contain !important;
   display: block;
 }
@@ -119,14 +119,14 @@
     height: 440px;
   }
   .tech-globe-logo-icon {
-    width: 1.3rem;
-    height: 1.3rem;
-    font-size: 1.3rem;
+    width: 1.0rem;
+    height: 1.0rem;
+    font-size: 1.0rem;
   }
   .tech-globe-logo-icon svg,
   .tech-globe-logo-icon img {
-    max-width: 1.3rem !important;
-    max-height: 1.3rem !important;
+    max-width: 1.0rem !important;
+    max-height: 1.0rem !important;
   }
   .tech-globe-logo-label {
     font-size: 0.58rem;
