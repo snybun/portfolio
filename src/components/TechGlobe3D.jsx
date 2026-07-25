@@ -64,39 +64,30 @@ export default function TechGlobe3D({ items }) {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Animation Loop (Dynamic Vertical & Horizontal Multi-Axis 3D Tumbling)
+  // Animation Loop (Continuous Active Vertical & Horizontal 3D Revolution)
   useEffect(() => {
     let animId
-    let time = 0
 
     const animate = () => {
-      time += 0.015
-
       if (!isDraggingRef.current) {
         velocityRef.current.x *= 0.95
         velocityRef.current.y *= 0.95
-        velocityRef.current.z *= 0.95
 
-        // Active vertical (X-axis) + horizontal (Y-axis) rotation speeds
-        const speedX = Math.sin(time * 0.4) * 0.003 + 0.006 // Strong vertical motion
-        const speedY = Math.cos(time * 0.3) * 0.003 + 0.007 // Strong horizontal motion
-        const speedZ = Math.sin(time * 0.5) * 0.002 + 0.003 // Roll motion
+        // Active Vertical (top-to-bottom) & Horizontal (left-to-right) spin speeds (Slower, elegant pace)
+        const speedX = 0.0028 // Vertical pitch speed
+        const speedY = 0.0022 // Horizontal yaw speed
 
         rotationRef.current.x += speedX + velocityRef.current.y
         rotationRef.current.y += speedY + velocityRef.current.x
-        rotationRef.current.z += speedZ + velocityRef.current.z
       }
 
       const rotX = rotationRef.current.x
       const rotY = rotationRef.current.y
-      const rotZ = rotationRef.current.z
 
       const cosX = Math.cos(rotX)
       const sinX = Math.sin(rotX)
       const cosY = Math.cos(rotY)
       const sinY = Math.sin(rotY)
-      const cosZ = Math.cos(rotZ)
-      const sinZ = Math.sin(rotZ)
 
       const baseRadius = Math.min(containerSize.width, containerSize.height)
       const globeRadius = baseRadius * 0.44 // True equal 3D sphere radius centered in middle
@@ -105,28 +96,23 @@ export default function TechGlobe3D({ items }) {
       const cx = containerSize.width / 2
       const cy = containerSize.height / 2
 
-      // Exact 3D Euler Rotation Matrix (Yaw Y * Pitch X * Roll Z)
+      // Complete 3D Euler Rotation Matrix (Pitch X -> Yaw Y)
       const project3D = (x, y, z) => {
-        // 1. Rotate Y (yaw)
-        const x1 = x * cosY + z * sinY
-        const y1 = y
-        const z1 = -x * sinY + z * cosY
+        // 1. Rotate around X (pitch / vertical)
+        const x1 = x
+        const y1 = y * cosX - z * sinX
+        const z1 = y * sinX + z * cosX
 
-        // 2. Rotate X (pitch)
-        const x2 = x1
-        const y2 = y1 * cosX - z1 * sinX
-        const z2 = y1 * sinX + z1 * cosX
+        // 2. Rotate around Y (yaw / horizontal)
+        const x2 = x1 * cosY + z1 * sinY
+        const y2 = y1
+        const z2 = -x1 * sinY + z1 * cosY
 
-        // 3. Rotate Z (roll)
-        const x3 = x2 * cosZ - y2 * sinZ
-        const y3 = x2 * sinZ + y2 * cosZ
-        const z3 = z2
-
-        const scale = 1 / (1 + z3 * 0.38)
+        const scale = 1 / (1 + z2 * 0.38)
         return {
-          px: cx + x3 * radiusX * scale,
-          py: cy + y3 * radiusY * scale,
-          pz: z3,
+          px: cx + x2 * radiusX * scale,
+          py: cy + y2 * radiusY * scale,
+          pz: z2,
           scale,
         }
       }
@@ -135,9 +121,9 @@ export default function TechGlobe3D({ items }) {
       const projected = spherePointsRef.current.map((pt) => {
         const p = project3D(pt.vec.x, pt.vec.y, pt.vec.z)
 
-        // Depth opacity & scale
-        const opacity = p.pz > 0 ? 0.8 + p.pz * 0.2 : 0.2 + (p.pz + 1) * 0.25
-        const itemScale = p.pz > 0 ? 0.85 + p.pz * 0.3 : 0.5 + (p.pz + 1) * 0.25
+        // Subtle depth opacity & tight scale factor (matching Python icon size)
+        const opacity = p.pz > 0 ? 0.85 + p.pz * 0.15 : 0.25 + (p.pz + 1) * 0.25
+        const itemScale = p.pz > 0 ? 0.75 + p.pz * 0.15 : 0.5 + (p.pz + 1) * 0.12
         const zIndex = Math.round((p.pz + 1) * 100)
 
         return {
@@ -176,10 +162,10 @@ export default function TechGlobe3D({ items }) {
               const rz = Math.sin(a) * rRing
               const p = project3D(rx, latY, rz)
 
-              if (p.pz > -0.65) {
-                const alpha = (p.pz + 0.65) * 0.16
-                ctx.strokeStyle = `rgba(130, 145, 230, ${alpha})`
-                ctx.lineWidth = 0.8
+              if (p.pz > -0.7) {
+                const alpha = (p.pz + 0.7) * 0.22
+                ctx.strokeStyle = `rgba(140, 160, 245, ${alpha})`
+                ctx.lineWidth = 0.9
                 if (first) {
                   ctx.moveTo(p.px, p.py)
                   first = false
@@ -205,10 +191,10 @@ export default function TechGlobe3D({ items }) {
               const rz = Math.cos(latA) * Math.sin(lonAngle)
               const p = project3D(rx, ry, rz)
 
-              if (p.pz > -0.65) {
-                const alpha = (p.pz + 0.65) * 0.16
-                ctx.strokeStyle = `rgba(130, 145, 230, ${alpha})`
-                ctx.lineWidth = 0.8
+              if (p.pz > -0.7) {
+                const alpha = (p.pz + 0.7) * 0.22
+                ctx.strokeStyle = `rgba(140, 160, 245, ${alpha})`
+                ctx.lineWidth = 0.9
                 if (first) {
                   ctx.moveTo(p.px, p.py)
                   first = false
@@ -224,8 +210,8 @@ export default function TechGlobe3D({ items }) {
 
           // 3. Atmosphere Outer Ambient Glow Gradient (Circular)
           const glowGrad = ctx.createRadialGradient(cx, cy, radiusX * 0.5, cx, cy, radiusX * 1.2)
-          glowGrad.addColorStop(0, 'rgba(120, 145, 255, 0.09)')
-          glowGrad.addColorStop(0.5, 'rgba(100, 120, 255, 0.035)')
+          glowGrad.addColorStop(0, 'rgba(120, 145, 255, 0.12)')
+          glowGrad.addColorStop(0.5, 'rgba(100, 120, 255, 0.045)')
           glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
           ctx.fillStyle = glowGrad
