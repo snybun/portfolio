@@ -102,33 +102,35 @@ function Hero({ preloaderDone }) {
         initial="hidden"
         animate={shouldAnimate ? 'visible' : 'hidden'}
       >
-        <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
-          <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
-            ui/ux{' '}
+        <span className="hero__title-line">
+          <motion.span className="hero__title-line-inner" variants={lineVariants}>
+            ui/ux
           </motion.span>
         </span>
-        <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
-          <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
-            <span className="hero__emphasis">designer</span> &{' '}
+        <span className="hero__title-line">
+          <motion.span className="hero__title-line-inner" variants={lineVariants}>
+            <span className="hero__emphasis">designer</span>&nbsp;&amp;
           </motion.span>
         </span>
-        <span className="hero__title-line" style={{ display: 'block', overflow: 'hidden' }}>
-          <motion.span className="hero__title-line-inner" style={{ display: 'block' }} variants={lineVariants}>
+        <span className="hero__title-line">
+          <motion.span className="hero__title-line-inner" variants={lineVariants}>
             <span className="hero__emphasis">developer</span>.
           </motion.span>
         </span>
       </motion.h1>
 
-      <motion.div
-        className="hero__scroll-indicator"
-        variants={scrollVariants}
-        initial="hidden"
-        animate={shouldAnimate ? 'visible' : 'hidden'}
-        onClick={scrollToAbout}
-      >
-        <span className="hero__scroll-text">Scroll to explore</span>
-        <div className="hero__scroll-line" />
-      </motion.div>
+      <div className="hero__scroll-wrapper">
+        <motion.div
+          className="hero__scroll-indicator"
+          variants={scrollVariants}
+          initial="hidden"
+          animate={shouldAnimate ? 'visible' : 'hidden'}
+          onClick={scrollToAbout}
+        >
+          <span className="hero__scroll-text">Scroll to explore</span>
+          <div className="hero__scroll-line" />
+        </motion.div>
+      </div>
     </section>
   )
 }

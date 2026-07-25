@@ -1,17 +1,19 @@
 /* ============================================
    HERO SECTION STYLES
+/* ============================================
+   HERO SECTION STYLES
    Full viewport hero with large typography
    ============================================ */
 
 .hero {
   min-height: 100vh;
   min-height: 100svh;
-  display: grid;
-  grid-template-rows: minmax(96px, 1fr) auto minmax(88px, auto);
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   position: relative;
-  padding: var(--nav-height) var(--space-lg) clamp(1.5rem, 4vh, 3rem);
+  padding: var(--nav-height) var(--space-lg) clamp(2rem, 5vh, 4rem);
   overflow: hidden;
 }
 
@@ -54,7 +56,7 @@
   right: var(--space-lg);
 }
 
-/* Main heading */
+/* Main heading - 100% centered & shifted upward */
 .hero__title {
   font-size: var(--fs-hero);
   font-weight: var(--fw-light);
@@ -62,14 +64,32 @@
   letter-spacing: var(--ls-tight);
   text-align: center;
   color: var(--color-text-primary);
+  width: 100%;
   max-width: min(900px, 100%);
   position: relative;
   z-index: 1;
-  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: -2.5rem auto 0 auto;
 }
 
 .hero__title-line {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero__title-line-inner {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 /* Italic emphasis on key words */
@@ -91,18 +111,29 @@
   transform-origin: left;
 }
 
-/* Scroll indicator at bottom */
+/* Scroll indicator positioned near developer. heading line */
+.hero__scroll-wrapper {
+  position: absolute;
+  bottom: clamp(6.5rem, 13.5vh, 9.5rem);
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
 .hero__scroll-indicator {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(0.625rem, 2vh, var(--space-sm));
+  justify-content: center;
+  gap: clamp(0.5rem, 1.5vh, var(--space-xs));
   cursor: pointer;
-  z-index: 2;
-  grid-row: 3;
-  align-self: start;
-  margin-top: clamp(1.25rem, 3vh, 2.5rem);
+  pointer-events: auto;
+  text-align: center;
 }
 
 .hero__scroll-text {
@@ -111,6 +142,10 @@
   color: var(--color-text-muted);
   letter-spacing: var(--ls-wider);
   text-transform: uppercase;
+  margin-top: -0.8em;
+  margin-right: -0.1em;
+  text-align: center;
+  display: block;
 }
 
 .hero__scroll-line {
@@ -118,6 +153,7 @@
   height: 40px;
   position: relative;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .hero__scroll-line::before {
@@ -135,19 +171,17 @@
   0% {
     top: -100%;
   }
+
   50% {
     top: 0;
   }
+
   100% {
     top: 100%;
   }
 }
 
 @media (max-height: 720px) and (min-width: 769px) {
-  .hero {
-    grid-template-rows: minmax(72px, 0.7fr) auto minmax(64px, auto);
-  }
-
   .hero__title {
     font-size: 5.75rem;
   }
@@ -161,26 +195,18 @@
   .hero__title {
     font-size: 4.75rem;
   }
-
-  .hero__scroll-indicator {
-    margin-top: var(--space-sm);
-  }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .hero {
-    grid-template-rows: minmax(72px, 0.8fr) auto minmax(76px, auto);
     padding: calc(var(--nav-height) + var(--space-md)) var(--space-md) var(--space-lg);
   }
 
   .hero__title {
     font-size: 4rem;
     line-height: 1;
-  }
-
-  .hero__scroll-indicator {
-    margin-top: var(--space-lg);
+    margin-top: -2rem;
   }
 
   .hero__meta {
@@ -194,13 +220,13 @@
 
 @media (max-width: 480px) {
   .hero {
-    grid-template-rows: minmax(56px, 0.75fr) auto minmax(70px, auto);
     padding-left: var(--space-sm);
     padding-right: var(--space-sm);
   }
 
   .hero__title {
     font-size: 3.1rem;
+    margin-top: -1.5rem;
   }
 
   .hero__meta {
