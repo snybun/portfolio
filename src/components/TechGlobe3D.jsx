@@ -90,8 +90,9 @@ export default function TechGlobe3D({ items }) {
       const sinY = Math.sin(rotY)
 
       const baseRadius = Math.min(containerSize.width, containerSize.height)
-      const radiusX = baseRadius * 0.58 // Oval horizontal radius
-      const radiusY = baseRadius * 0.38 // Oval vertical radius
+      const globeRadius = baseRadius * 0.46 // Large 3D sphere radius
+      const radiusX = globeRadius
+      const radiusY = globeRadius
       const cx = containerSize.width / 2
       const cy = containerSize.height / 2
 
@@ -266,6 +267,11 @@ export default function TechGlobe3D({ items }) {
     isDraggingRef.current = false
   }
 
+  const isCompactIcon = (iconName = '') => {
+    const compactList = ['framer', 'framer motion', 'bootstrap', 'js', 'javascript', 'ts', 'typescript', 'nodejs', 'node.js']
+    return compactList.includes(iconName.toLowerCase())
+  }
+
   return (
     <div
       ref={containerRef}
@@ -298,7 +304,7 @@ export default function TechGlobe3D({ items }) {
             }}
           >
             <div className="tech-globe-logo-wrapper">
-              <TechIcon name={item.icon} className="tech-globe-logo-icon" />
+              <TechIcon name={item.icon} className={`tech-globe-logo-icon ${isCompactIcon(item.icon) ? 'tech-globe-logo-icon--compact' : ''}`} />
             </div>
             <span className="tech-globe-logo-label">{item.name}</span>
           </div>
