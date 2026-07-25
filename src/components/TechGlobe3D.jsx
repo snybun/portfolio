@@ -90,7 +90,7 @@ export default function TechGlobe3D({ items }) {
       const sinY = Math.sin(rotY)
 
       const baseRadius = Math.min(containerSize.width, containerSize.height)
-      const globeRadius = baseRadius * 0.44 // True equal 3D sphere radius centered in middle
+      const globeRadius = baseRadius * 0.48 // Expanded 3D sphere radius for generous gaps between icons
       const radiusX = globeRadius
       const radiusY = globeRadius
       const cx = containerSize.width / 2
@@ -121,9 +121,9 @@ export default function TechGlobe3D({ items }) {
       const projected = spherePointsRef.current.map((pt) => {
         const p = project3D(pt.vec.x, pt.vec.y, pt.vec.z)
 
-        // Subtle depth opacity & tight scale factor (matching Python icon size)
-        const opacity = p.pz > 0 ? 0.85 + p.pz * 0.15 : 0.25 + (p.pz + 1) * 0.25
-        const itemScale = p.pz > 0 ? 0.75 + p.pz * 0.15 : 0.5 + (p.pz + 1) * 0.12
+        // Subtle depth opacity & compact scale factor for generous icon gaps
+        const opacity = p.pz > 0 ? 0.85 + p.pz * 0.15 : 0.2 + (p.pz + 1) * 0.25
+        const itemScale = p.pz > 0 ? 0.65 + p.pz * 0.12 : 0.42 + (p.pz + 1) * 0.1
         const zIndex = Math.round((p.pz + 1) * 100)
 
         return {

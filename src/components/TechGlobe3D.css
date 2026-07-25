@@ -60,11 +60,11 @@
   filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.6));
 }
 
-/* Sleek smaller logos - uniform compact size matching Python */
+/* Sleek smaller logos - uniform compact size with generous gaps */
 .tech-globe-logo-icon {
-  width: 1.0rem;
-  height: 1.0rem;
-  font-size: 1.0rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,8 +75,8 @@
 .tech-globe-logo-icon img {
   width: 100% !important;
   height: 100% !important;
-  max-width: 1.0rem !important;
-  max-height: 1.0rem !important;
+  max-width: 0.8rem !important;
+  max-height: 0.8rem !important;
   object-fit: contain !important;
   display: block;
 }
@@ -119,14 +119,14 @@
     height: 440px;
   }
   .tech-globe-logo-icon {
-    width: 0.85rem;
-    height: 0.85rem;
-    font-size: 0.85rem;
+    width: 0.65rem;
+    height: 0.65rem;
+    font-size: 0.65rem;
   }
   .tech-globe-logo-icon svg,
   .tech-globe-logo-icon img {
-    max-width: 0.85rem !important;
-    max-height: 0.85rem !important;
+    max-width: 0.65rem !important;
+    max-height: 0.65rem !important;
   }
   .tech-globe-logo-label {
     font-size: 0.58rem;

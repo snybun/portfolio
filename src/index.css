@@ -150,7 +150,8 @@ img {
 }
 
 /* --- Lists --- */
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 

@@ -63,7 +63,7 @@ function ProfilePicture({ src, alt }) {
     <div className="about__photo-3d-perspective">
       <motion.div
         ref={cardRef}
-        className={`about__photo-wrapper ${isHovered ? 'about__photo-wrapper--hovered' : ''}`}
+        className="about__photo-wrapper"
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -72,41 +72,13 @@ function ProfilePicture({ src, alt }) {
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        whileHover={{ scale: 1.04 }}
-        transition={{ scale: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } }}
       >
-        {/* Dynamic 3D depth shadow */}
-        <motion.div
-          className="about__photo-shadow"
-          style={{
-            x: shadowX,
-            y: shadowY,
-          }}
+        <img
+          className={`about__photo ${isHovered ? 'about__photo--hovered' : ''}`}
+          src={src}
+          alt={alt}
         />
-
-        {/* Floating image layer popped out in 3D */}
-        <div className="about__photo-layer">
-          <img
-            className={`about__photo ${isHovered ? 'about__photo--hovered' : ''}`}
-            src={src}
-            alt={alt}
-          />
-        </div>
-
-        {/* Dot pattern floating layer */}
         <span className="about__photo-dots" aria-hidden="true" />
-
-        {/* Ambient border glow */}
-        <div className="about__photo-border-glow" aria-hidden="true" />
-
-        {/* Interactive Specular Glare light source */}
-        <motion.div
-          className="about__photo-glare"
-          style={{
-            background: glareBg,
-            opacity: isHovered ? 1 : 0,
-          }}
-        />
       </motion.div>
     </div>
   )
@@ -185,7 +157,7 @@ function About() {
 
             <motion.div
               className="about__hello-image"
-              variants={maskReveal}
+              variants={fadeUp}
               initial="hidden"
               animate={helloInView ? 'visible' : 'hidden'}
               custom={0.3}
