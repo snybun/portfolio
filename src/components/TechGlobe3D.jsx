@@ -90,7 +90,7 @@ export default function TechGlobe3D({ items }) {
       const sinY = Math.sin(rotY)
 
       const baseRadius = Math.min(containerSize.width, containerSize.height)
-      const globeRadius = baseRadius * 0.48 // Expanded 3D sphere radius for generous gaps between icons
+      const globeRadius = baseRadius * 0.48 // True equal 3D sphere radius centered in middle
       const radiusX = globeRadius
       const radiusY = globeRadius
       const cx = containerSize.width / 2
@@ -179,10 +179,10 @@ export default function TechGlobe3D({ items }) {
             ctx.stroke()
           }
 
-          // 2. Draw Longitudinal Meridians (20 meridians)
-          const lonRingsCount = 20
-          for (let i = 0; i < lonRingsCount; i++) {
-            const lonAngle = (i / lonRingsCount) * Math.PI * 2
+          // 2. Draw Longitudinal Meridians (16 meridians)
+          const lonLinesCount = 16
+          for (let i = 0; i < lonLinesCount; i++) {
+            const lonAngle = (i / lonLinesCount) * Math.PI * 2
             ctx.beginPath()
             let first = true
             for (let latA = -Math.PI / 2; latA <= Math.PI / 2; latA += 0.08) {
@@ -207,17 +207,6 @@ export default function TechGlobe3D({ items }) {
             }
             ctx.stroke()
           }
-
-          // 3. Atmosphere Outer Ambient Glow Gradient (Circular)
-          const glowGrad = ctx.createRadialGradient(cx, cy, radiusX * 0.5, cx, cy, radiusX * 1.2)
-          glowGrad.addColorStop(0, 'rgba(100, 120, 255, 0.035)')
-          glowGrad.addColorStop(0.5, 'rgba(100, 120, 255, 0.01)')
-          glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
-
-          ctx.fillStyle = glowGrad
-          ctx.beginPath()
-          ctx.arc(cx, cy, radiusX * 1.2, 0, Math.PI * 2)
-          ctx.fill()
         }
       }
 
@@ -225,7 +214,12 @@ export default function TechGlobe3D({ items }) {
     }
 
     animId = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(animId)
+
+    return () => {
+      if (animId) {
+        cancelAnimationFrame(animId)
+      }
+    }
   }, [containerSize])
 
   // Drag Interaction
@@ -288,8 +282,8 @@ export default function TechGlobe3D({ items }) {
           >
             <div className="tech-globe-logo-wrapper">
               <TechIcon name={item.icon} className="tech-globe-logo-icon" />
-              <span className="tech-globe-logo-label">{item.name}</span>
             </div>
+            <span className="tech-globe-logo-label">{item.name}</span>
           </div>
         ))}
       </div>
