@@ -163,9 +163,9 @@ export default function TechGlobe3D({ items }) {
               const p = project3D(rx, latY, rz)
 
               if (p.pz > -0.7) {
-                const alpha = (p.pz + 0.7) * 0.22
-                ctx.strokeStyle = `rgba(140, 160, 245, ${alpha})`
-                ctx.lineWidth = 0.9
+                const alpha = (p.pz + 0.7) * 0.075
+                ctx.strokeStyle = `rgba(130, 145, 230, ${alpha})`
+                ctx.lineWidth = 0.6
                 if (first) {
                   ctx.moveTo(p.px, p.py)
                   first = false
@@ -192,9 +192,9 @@ export default function TechGlobe3D({ items }) {
               const p = project3D(rx, ry, rz)
 
               if (p.pz > -0.7) {
-                const alpha = (p.pz + 0.7) * 0.22
-                ctx.strokeStyle = `rgba(140, 160, 245, ${alpha})`
-                ctx.lineWidth = 0.9
+                const alpha = (p.pz + 0.7) * 0.075
+                ctx.strokeStyle = `rgba(130, 145, 230, ${alpha})`
+                ctx.lineWidth = 0.6
                 if (first) {
                   ctx.moveTo(p.px, p.py)
                   first = false
@@ -210,8 +210,8 @@ export default function TechGlobe3D({ items }) {
 
           // 3. Atmosphere Outer Ambient Glow Gradient (Circular)
           const glowGrad = ctx.createRadialGradient(cx, cy, radiusX * 0.5, cx, cy, radiusX * 1.2)
-          glowGrad.addColorStop(0, 'rgba(120, 145, 255, 0.12)')
-          glowGrad.addColorStop(0.5, 'rgba(100, 120, 255, 0.045)')
+          glowGrad.addColorStop(0, 'rgba(100, 120, 255, 0.035)')
+          glowGrad.addColorStop(0.5, 'rgba(100, 120, 255, 0.01)')
           glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
           ctx.fillStyle = glowGrad
