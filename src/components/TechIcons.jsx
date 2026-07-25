@@ -1,4 +1,4 @@
-// Automatically detect any PNG, JPG, WEBP, or SVG icons placed in /src/assets/tech/
+ // Automatically detect any PNG, JPG, WEBP, or SVG icons placed in /src/assets/tech/
 const customTechImages = import.meta.glob('/src/assets/tech/*.{png,jpg,jpeg,webp,svg}', {
   eager: true,
   import: 'default',
