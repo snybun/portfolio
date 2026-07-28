@@ -248,3 +248,190 @@
     font-size: var(--fs-xl);
   }
 }
+
+/* ============================================
+   EXPERIENCE TIMELINE STYLES
+   ============================================ */
+
+.about__experience {
+  padding-top: var(--space-xl);
+}
+
+.about__experience-header {
+  margin-bottom: var(--space-2xl);
+}
+
+.about__experience-title {
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: var(--fw-light);
+  line-height: 1.15;
+  letter-spacing: var(--ls-tight);
+  color: var(--color-text-primary);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.about__experience-intro {
+  font-size: var(--fs-base);
+  color: var(--color-text-secondary);
+  max-width: 540px;
+}
+
+.about__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  position: relative;
+}
+
+.about__timeline-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--space-md);
+  position: relative;
+}
+
+.about__timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.about__timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text-primary);
+  border: 2px solid #0a0a0a;
+  box-shadow: 0 0 0 2px rgba(245, 245, 245, 0.25);
+  margin-top: 1.5rem;
+  z-index: 2;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.about__timeline-item:hover .about__timeline-dot {
+  transform: scale(1.3);
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+.about__timeline-line {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04));
+  margin-top: 4px;
+}
+
+.about__timeline-item:last-child .about__timeline-line {
+  display: none;
+}
+
+.about__timeline-content {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 2rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+}
+
+.about__timeline-item:hover .about__timeline-content {
+  background: rgba(255, 255, 255, 0.038);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.about__timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.about__timeline-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.about__timeline-role {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-primary);
+  letter-spacing: var(--ls-tight);
+}
+
+.about__timeline-company {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--fw-regular);
+}
+
+.about__timeline-location {
+  opacity: 0.75;
+}
+
+.about__timeline-period {
+  font-family: var(--ff-mono, monospace);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+.about__timeline-description {
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.about__timeline-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.about__timeline-skill {
+  font-size: var(--fs-xs);
+  font-family: var(--ff-mono, monospace);
+  color: rgba(245, 245, 245, 0.75);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.about__timeline-item:hover .about__timeline-skill {
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .about__timeline-item {
+    grid-template-columns: 20px 1fr;
+    gap: var(--space-xs);
+  }
+
+  .about__timeline-content {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .about__timeline-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about__timeline-period {
+    align-self: flex-start;
+  }
+}

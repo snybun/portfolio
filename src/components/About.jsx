@@ -87,33 +87,33 @@ function ProfilePicture({ src, alt }) {
 const experiences = [
   {
     id: 'exp-1',
-    role: 'Lead Frontend Developer & UI Designer',
-    company: 'Freelance & Client Projects',
-    period: '2024 — PRESENT',
-    location: 'Philippines (Remote)',
+    role: 'Tech Support & QA Specialist',
+    company: 'Guanzon Group of Companies',
+    period: '2026 — PRESENT',
+    location: 'Philippines',
     description:
-      'Designing and engineering custom web applications, dynamic portfolio sites, and interactive web experiences. Focused on modern performance, responsive layouts, motion graphics, and clean user interfaces.',
-    skills: ['React', 'JavaScript (ES6+)', 'Framer Motion', 'CSS3 / Tailwind', 'Figma', 'UI/UX Design'],
+      'Providing technical support, performing quality assurance testing on software systems, diagnosing technical issues, and verifying product reliability before deployment.',
+    skills: ['Quality Assurance', 'Tech Support', 'Software Testing', 'Bug Tracking & QA', 'System Diagnostics'],
   },
   {
     id: 'exp-2',
-    role: 'Full Stack Web Developer',
-    company: 'Digital Solutions',
-    period: '2023 — 2024',
+    role: 'Application Tester',
+    company: 'BSTech Solutions',
+    period: '2025 — 2025',
     location: 'Philippines',
     description:
-      'Architected end-to-end web applications and RESTful APIs. Collaborated on database schema design, UI component libraries, and optimized frontend bundle performance.',
-    skills: ['React', 'Node.js', 'Express', 'MongoDB', 'REST APIs', 'Git'],
+      'Executed functional, usability, and regression testing for mobile and web applications. Documented test scenarios, logged issue reports, and ensured seamless user experience.',
+    skills: ['App Testing', 'Test Case Design', 'Mobile & Web QA', 'UI/UX Testing', 'Bug Reporting'],
   },
   {
     id: 'exp-3',
-    role: 'Junior Web Developer & Designer',
-    company: 'Creative Tech Studio',
-    period: '2022 — 2023',
+    role: 'Frontend Developer & UI Designer',
+    company: 'Freelance & Personal Projects',
+    period: '2024 — 2025',
     location: 'Philippines',
     description:
-      'Built responsive web interfaces, crafted interactive UI wireframes, improved cross-browser compatibility, and assisted with user experience testing and design iterations.',
-    skills: ['HTML5 & CSS3', 'JavaScript', 'Responsive Design', 'Figma', 'UI Design'],
+      'Designing and building custom web applications, responsive interfaces, and interactive portfolio sites combining clean aesthetics with modern web technologies.',
+    skills: ['React', 'JavaScript (ES6+)', 'CSS3', 'Framer Motion', 'Figma', 'UI/UX Design'],
   },
 ]
 
