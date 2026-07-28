@@ -43,18 +43,34 @@ function TechStack() {
 
   // Parallax transform layers
   const headerY = useTransform(smoothProgress, [0, 1], [-35, 35])
-  const globeY = useTransform(smoothProgress, [0, 1], [50, -50])
-  const globeScale = useTransform(smoothProgress, [0, 0.5, 1], [0.94, 1.03, 0.96])
-  const bgTextY = useTransform(smoothProgress, [0, 1], [-110, 110])
-  const bgTextOpacity = useTransform(smoothProgress, [0, 0.5, 1], [0.02, 0.06, 0.02])
+  const globeY = useTransform(smoothProgress, [0, 1], [40, -40])
+  const globeScale = useTransform(smoothProgress, [0, 0.5, 1], [0.95, 1.02, 0.97])
+
+  // Parallax for upper-left "TECH"
+  const techY = useTransform(smoothProgress, [0, 1], [-70, 70])
+  const techX = useTransform(smoothProgress, [0, 1], [-30, 30])
+
+  // Parallax for lower-right "ARSENAL"
+  const arsenalY = useTransform(smoothProgress, [0, 1], [70, -70])
+  const arsenalX = useTransform(smoothProgress, [0, 1], [30, -30])
+
+  const bgTextOpacity = useTransform(smoothProgress, [0, 0.5, 1], [0.03, 0.07, 0.03])
   const glowY = useTransform(smoothProgress, [0, 1], [90, -90])
 
   return (
     <section className="tech-stack" id="tech-stack" ref={sectionRef}>
-      {/* Background Parallax Watermark Text */}
+      {/* Background Parallax Watermark Texts */}
       <motion.div
-        className="tech-stack__bg-watermark"
-        style={{ y: bgTextY, opacity: bgTextOpacity }}
+        className="tech-stack__bg-watermark tech-stack__bg-watermark--tech"
+        style={{ y: techY, x: techX, opacity: bgTextOpacity }}
+        aria-hidden="true"
+      >
+        TECH
+      </motion.div>
+
+      <motion.div
+        className="tech-stack__bg-watermark tech-stack__bg-watermark--arsenal"
+        style={{ y: arsenalY, x: arsenalX, opacity: bgTextOpacity }}
         aria-hidden="true"
       >
         ARSENAL
