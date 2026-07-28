@@ -105,16 +105,6 @@ const experiences = [
       'Executed functional, usability, and regression testing for mobile and web applications. Documented test scenarios, logged issue reports, and ensured seamless user experience.',
     skills: ['App Testing', 'Test Case Design', 'Mobile & Web QA', 'UI/UX Testing', 'Bug Reporting'],
   },
-  {
-    id: 'exp-3',
-    role: 'Frontend Developer & UI Designer',
-    company: 'Freelance & Personal Projects',
-    period: '2024 — 2025',
-    location: 'Philippines',
-    description:
-      'Designing and building custom web applications, responsive interfaces, and interactive portfolio sites combining clean aesthetics with modern web technologies.',
-    skills: ['React', 'JavaScript (ES6+)', 'CSS3', 'Framer Motion', 'Figma', 'UI/UX Design'],
-  },
 ]
 
 function About() {
