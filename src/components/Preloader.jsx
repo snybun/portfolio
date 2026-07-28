@@ -18,7 +18,7 @@ function Preloader({ onComplete }) {
   }, [onComplete])
 
   useEffect(() => {
-    const duration = 2600
+    const duration = 4200
     const start = performance.now()
     let frameId
     let exitTimer
@@ -35,7 +35,7 @@ function Preloader({ onComplete }) {
 
       exitTimer = setTimeout(() => {
         setIsLeaving(true)
-      }, 450)
+      }, 600)
     }
 
     frameId = requestAnimationFrame(tick)
