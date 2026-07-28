@@ -5,38 +5,36 @@ import './Work.css'
 const projects = [
   {
     number: '01',
-    name: 'Project One',
-    year: '2024',
-    tag: 'Web Design',
-    tech: ['React', 'Framer Motion', 'Tailwind CSS', 'Vite'],
+    name: 'Pincraft',
+    year: '2025',
+    tag: 'Java Desktop System',
+    tech: ['Java', 'Java Swing', 'SQLite', 'SMTP Mail API'],
     description:
-      'A clean, modern web application built with React. Featuring responsive design, smooth animations, and an intuitive user interface that delivers a seamless experience across all devices.',
+      'PinCraft is a Java Swing desktop application for designing custom button pins, saving projects per user account, arranging them on printable paper layouts, and exporting them as PDF files.',
     links: [
-      { label: 'Live Demo', href: '#', external: true },
-      { label: 'GitHub', href: '#', external: true },
+      { label: 'GitHub Repo', href: 'https://github.com/snybun/pincraft-sys', external: true },
     ],
   },
   {
     number: '02',
-    name: 'Project Two',
+    name: 'Interactive Web Applications',
     year: '2024',
-    tag: 'Full Stack',
-    tech: ['Next.js', 'Node.js', 'PostgreSQL', 'Prisma'],
+    tag: 'Frontend Dev',
+    tech: ['React', 'TypeScript', 'Framer Motion', 'CSS3'],
     description:
-      'An end-to-end full-stack application with a focus on performance and scalability. Built with modern technologies and best practices for a robust and maintainable codebase.',
+      'High-performance web applications featuring fluid motion design, responsive layouts, and modern component-driven architectures.',
     links: [
-      { label: 'Live Demo', href: '#', external: true },
-      { label: 'GitHub', href: '#', external: true },
+      { label: 'GitHub Profile', href: 'https://github.com/snybun', external: true },
     ],
   },
   {
     number: '03',
-    name: 'Project Three',
-    year: '2023',
-    tag: 'UI/UX',
-    tech: ['Figma', 'Prototyping', 'Design System', 'CSS3'],
+    name: 'UI/UX & Systems Design',
+    year: '2024',
+    tag: 'UI/UX Design',
+    tech: ['Figma', 'Prototyping', 'Design System', 'User Research'],
     description:
-      'A comprehensive design system and brand identity project. From initial research to final delivery, every detail was carefully considered to create a cohesive and memorable brand experience.',
+      'Comprehensive design systems and user experience design for web applications—from wireframing to interactive prototypes.',
     links: [
       { label: "Let's Talk", href: '#contact', external: false },
     ],

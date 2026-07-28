@@ -29,7 +29,7 @@ function Contact() {
           animate={isInView ? 'visible' : 'hidden'}
           custom={0}
         >
-          <span className="contact__number">04</span>
+          <span className="contact__number">05</span>
           <span className="contact__slash">/</span>
           <span className="contact__subtitle">GET IN TOUCH</span>
         </motion.div>
@@ -94,12 +94,12 @@ function Contact() {
             LinkedIn
           </a>
           <a
-            href="https://twitter.com/"
+            href="https://instagram.com/"
             className="contact__social-link"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Twitter
+            Instagram
           </a>
         </motion.div>
       </div>
