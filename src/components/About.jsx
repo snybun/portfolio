@@ -84,11 +84,44 @@ function ProfilePicture({ src, alt }) {
   )
 }
 
+const experiences = [
+  {
+    id: 'exp-1',
+    role: 'Lead Frontend Developer & UI Designer',
+    company: 'Freelance & Client Projects',
+    period: '2024 — PRESENT',
+    location: 'Philippines (Remote)',
+    description:
+      'Designing and engineering custom web applications, dynamic portfolio sites, and interactive web experiences. Focused on modern performance, responsive layouts, motion graphics, and clean user interfaces.',
+    skills: ['React', 'JavaScript (ES6+)', 'Framer Motion', 'CSS3 / Tailwind', 'Figma', 'UI/UX Design'],
+  },
+  {
+    id: 'exp-2',
+    role: 'Full Stack Web Developer',
+    company: 'Digital Solutions',
+    period: '2023 — 2024',
+    location: 'Philippines',
+    description:
+      'Architected end-to-end web applications and RESTful APIs. Collaborated on database schema design, UI component libraries, and optimized frontend bundle performance.',
+    skills: ['React', 'Node.js', 'Express', 'MongoDB', 'REST APIs', 'Git'],
+  },
+  {
+    id: 'exp-3',
+    role: 'Junior Web Developer & Designer',
+    company: 'Creative Tech Studio',
+    period: '2022 — 2023',
+    location: 'Philippines',
+    description:
+      'Built responsive web interfaces, crafted interactive UI wireframes, improved cross-browser compatibility, and assisted with user experience testing and design iterations.',
+    skills: ['HTML5 & CSS3', 'JavaScript', 'Responsive Design', 'Figma', 'UI Design'],
+  },
+]
+
 function About() {
   const helloRef = useRef(null)
-  const craftRef = useRef(null)
+  const experienceRef = useRef(null)
   const helloInView = useInView(helloRef, { margin: '-100px' })
-  const craftInView = useInView(craftRef, { margin: '-100px' })
+  const experienceInView = useInView(experienceRef, { margin: '-100px' })
 
   const fadeUp = {
     hidden: { opacity: 0, y: 48 },
@@ -98,18 +131,6 @@ function About() {
       transition: {
         duration: 0.85,
         ease: [0.16, 1, 0.3, 1],
-        delay,
-      },
-    }),
-  }
-
-  const maskReveal = {
-    hidden: { clipPath: 'inset(0 0 100% 0)' },
-    visible: (delay = 0) => ({
-      clipPath: 'inset(0 0 0% 0)',
-      transition: {
-        duration: 1.15,
-        ease: [0.76, 0, 0.24, 1],
         delay,
       },
     }),
@@ -164,6 +185,72 @@ function About() {
             >
               <ProfilePicture src={aboutImage} alt="pic ko" />
             </motion.div>
+          </div>
+        </div>
+
+        <motion.div
+          className="about__divider"
+          variants={fadeUp}
+          initial="hidden"
+          animate={helloInView ? 'visible' : 'hidden'}
+          custom={0.4}
+        />
+
+        {/* Experience Timeline Section */}
+        <div className="about__experience" ref={experienceRef} id="experience">
+          <motion.div
+            className="about__experience-header"
+            variants={fadeUp}
+            initial="hidden"
+            animate={experienceInView ? 'visible' : 'hidden'}
+            custom={0}
+          >
+            <div className="about__header">
+              <span className="about__number">02</span>
+              <span className="about__slash">/</span>
+              <span className="about__subtitle">CAREER & EXPERIENCE</span>
+            </div>
+            <h3 className="about__experience-title">Work Experience</h3>
+            <p className="about__experience-intro">
+              My professional journey, key roles, and technical contributions over the years.
+            </p>
+          </motion.div>
+
+          <div className="about__timeline">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={exp.id}
+                className="about__timeline-item"
+                variants={fadeUp}
+                initial="hidden"
+                animate={experienceInView ? 'visible' : 'hidden'}
+                custom={0.15 + index * 0.12}
+              >
+                <div className="about__timeline-marker">
+                  <div className="about__timeline-dot" />
+                  <div className="about__timeline-line" />
+                </div>
+                <div className="about__timeline-content">
+                  <div className="about__timeline-header">
+                    <div className="about__timeline-title-group">
+                      <h4 className="about__timeline-role">{exp.role}</h4>
+                      <span className="about__timeline-company">
+                        {exp.company} <span className="about__timeline-location">• {exp.location}</span>
+                      </span>
+                    </div>
+                    <span className="about__timeline-period">{exp.period}</span>
+                  </div>
+                  <p className="about__timeline-description">{exp.description}</p>
+                  <div className="about__timeline-skills">
+                    {exp.skills.map((skill) => (
+                      <span key={skill} className="about__timeline-skill">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
