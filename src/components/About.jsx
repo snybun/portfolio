@@ -160,8 +160,9 @@ function About() {
                 animate={helloInView ? 'visible' : 'hidden'}
                 custom={0.2}
               >
-                A passionate designer and developer based in the Philippines. I craft
-                digital experiences that combine clean aesthetics with thoughtful
+                A UI/UX designer and developer based in the Philippines.
+                Student at <b>PHINMA University of Pangasinan. z</b>
+                I craft digital experiences that combine clean aesthetics with thoughtful
                 functionality - bringing ideas to life through code and creativity.
               </motion.p>
             </div>
