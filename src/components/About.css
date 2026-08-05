@@ -9,6 +9,23 @@
   overflow: hidden;
 }
 
+.about__bg-watermark {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--ff-mono, monospace);
+  font-size: clamp(6rem, 16vw, 15rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+  will-change: transform;
+}
+
 .about::before {
   content: '';
   position: absolute;

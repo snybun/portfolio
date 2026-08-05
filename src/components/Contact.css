@@ -6,6 +6,40 @@
 .contact {
   padding: var(--section-padding) 0;
   position: relative;
+  overflow: hidden;
+}
+
+/* Background Parallax Layer */
+.contact__bg-glow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+.contact__bg-watermark {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--ff-mono, monospace);
+  font-size: clamp(5rem, 15vw, 14rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+  will-change: transform;
 }
 
 .contact__container {
@@ -13,6 +47,8 @@
   margin: 0 auto;
   padding: 0 var(--space-lg);
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .contact__header {
