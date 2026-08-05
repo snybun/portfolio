@@ -1,4 +1,4 @@
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useInView, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion'
 import { useRef, useState } from 'react'
 import aboutImage from '../assets/gyu.jpg'
 import './About.css'
@@ -108,10 +108,30 @@ const experiences = [
 ]
 
 function About() {
+  const sectionRef = useRef(null)
   const helloRef = useRef(null)
   const experienceRef = useRef(null)
   const helloInView = useInView(helloRef, { margin: '-100px' })
   const experienceInView = useInView(experienceRef, { margin: '-100px' })
+
+  // Scroll driven parallax physics
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  })
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 24,
+    restDelta: 0.001,
+  })
+
+  // Multi-layered Parallax Transforms
+  const bgTextY = useTransform(smoothProgress, [0, 1], [-100, 100])
+  const photoY = useTransform(smoothProgress, [0, 1], [60, -60])
+  const helloTextY = useTransform(smoothProgress, [0, 1], [-20, 20])
+  const expHeaderY = useTransform(smoothProgress, [0, 1], [-40, 40])
+  const expTimelineY = useTransform(smoothProgress, [0, 1], [30, -30])
 
   const fadeUp = {
     hidden: { opacity: 0, y: 48 },
@@ -127,7 +147,16 @@ function About() {
   }
 
   return (
-    <section className="about" id="about">
+    <section className="about" id="about" ref={sectionRef}>
+      {/* Background Parallax Watermark */}
+      <motion.div
+        className="about__bg-watermark"
+        style={{ y: bgTextY }}
+        aria-hidden="true"
+      >
+        ABOUT ME
+      </motion.div>
+
       <div className="about__container">
         <div className="about__hello" ref={helloRef}>
           <motion.div
@@ -143,7 +172,7 @@ function About() {
           </motion.div>
 
           <div className="about__hello-content">
-            <div className="about__hello-text">
+            <motion.div className="about__hello-text" style={{ y: helloTextY }}>
               <motion.h2
                 className="about__greeting"
                 variants={fadeUp}
@@ -165,10 +194,11 @@ function About() {
                 I craft digital experiences that combine clean aesthetics with thoughtful
                 functionality - bringing ideas to life through code and creativity.
               </motion.p>
-            </div>
+            </motion.div>
 
             <motion.div
               className="about__hello-image"
+              style={{ y: photoY }}
               variants={fadeUp}
               initial="hidden"
               animate={helloInView ? 'visible' : 'hidden'}
@@ -191,6 +221,7 @@ function About() {
         <div className="about__experience" ref={experienceRef} id="experience">
           <motion.div
             className="about__experience-header"
+            style={{ y: expHeaderY }}
             variants={fadeUp}
             initial="hidden"
             animate={experienceInView ? 'visible' : 'hidden'}
@@ -207,7 +238,7 @@ function About() {
             </p>
           </motion.div>
 
-          <div className="about__timeline">
+          <motion.div className="about__timeline" style={{ y: expTimelineY }}>
             {experiences.map((exp, index) => (
               <motion.div
                 key={exp.id}
@@ -242,7 +273,7 @@ function About() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -250,3 +281,4 @@ function About() {
 }
 
 export default About
+
