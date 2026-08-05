@@ -17,39 +17,6 @@
   overflow: hidden;
 }
 
-/* Background Parallax Layer */
-.hero__bg-glow {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.045) 0%, transparent 70%);
-  filter: blur(90px);
-  pointer-events: none;
-  z-index: 0;
-  will-change: transform;
-}
-
-.hero__bg-watermark {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--ff-mono, monospace);
-  font-size: clamp(6rem, 18vw, 18rem);
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.02);
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-  z-index: 0;
-  will-change: transform;
-}
-
 .hero::before {
   content: '';
   position: absolute;

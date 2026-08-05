@@ -1,4 +1,4 @@
-import { motion, useInView, useScroll, useTransform, useSpring } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import './Hero.css'
 
@@ -6,27 +6,6 @@ function Hero({ preloaderDone }) {
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { margin: '-12% 0px -24% 0px' })
   const shouldAnimate = preloaderDone && heroInView
-
-  // Scroll-driven parallax physics
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  })
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 25,
-    restDelta: 0.001,
-  })
-
-  // Parallax transform offsets
-  const titleY = useTransform(smoothProgress, [0, 1], ['0px', '140px'])
-  const titleOpacity = useTransform(smoothProgress, [0, 0.7], [1, 0])
-  const metaLeftY = useTransform(smoothProgress, [0, 1], ['0px', '-80px'])
-  const metaRightY = useTransform(smoothProgress, [0, 1], ['0px', '-80px'])
-  const scrollWrapperY = useTransform(smoothProgress, [0, 1], ['0px', '60px'])
-  const bgTextY = useTransform(smoothProgress, [0, 1], ['0px', '-180px'])
-  const bgGlowY = useTransform(smoothProgress, [0, 1], ['0px', '120px'])
 
   const scrollToAbout = () => {
     const aboutSection = document.querySelector('#about')
@@ -87,22 +66,6 @@ function Hero({ preloaderDone }) {
 
   return (
     <section className="hero" id="hero" ref={heroRef}>
-      {/* Background Parallax Ambient Glow */}
-      <motion.div
-        className="hero__bg-glow"
-        style={{ y: bgGlowY }}
-        aria-hidden="true"
-      />
-
-      {/* Background Parallax Watermark Text */}
-      <motion.div
-        className="hero__bg-watermark"
-        style={{ y: bgTextY }}
-        aria-hidden="true"
-      >
-        PORTFOLIO
-      </motion.div>
-
       <motion.div
         className="hero__reveal-panel"
         initial={{ scaleY: 1 }}
@@ -117,7 +80,6 @@ function Hero({ preloaderDone }) {
 
       <motion.div
         className="hero__meta hero__meta--left"
-        style={{ y: metaLeftY }}
         variants={metaVariants}
         initial="hidden"
         animate={shouldAnimate ? 'visible' : 'hidden'}
@@ -127,7 +89,6 @@ function Hero({ preloaderDone }) {
 
       <motion.div
         className="hero__meta hero__meta--right"
-        style={{ y: metaRightY }}
         variants={metaVariants}
         initial="hidden"
         animate={shouldAnimate ? 'visible' : 'hidden'}
@@ -137,7 +98,6 @@ function Hero({ preloaderDone }) {
 
       <motion.h1
         className="hero__title"
-        style={{ y: titleY, opacity: titleOpacity }}
         variants={titleVariants}
         initial="hidden"
         animate={shouldAnimate ? 'visible' : 'hidden'}
@@ -159,7 +119,7 @@ function Hero({ preloaderDone }) {
         </span>
       </motion.h1>
 
-      <motion.div className="hero__scroll-wrapper" style={{ y: scrollWrapperY }}>
+      <div className="hero__scroll-wrapper">
         <motion.div
           className="hero__scroll-indicator"
           variants={scrollVariants}
@@ -170,7 +130,7 @@ function Hero({ preloaderDone }) {
           <span className="hero__scroll-text">Scroll to explore</span>
           <div className="hero__scroll-line" />
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }
