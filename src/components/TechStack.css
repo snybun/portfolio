@@ -345,12 +345,15 @@
   .tech-orbit {
     height: 280px;
   }
+
   .tech-orbit__badge {
     padding: 6px 12px;
   }
+
   .tech-orbit__name {
     font-size: 0.65rem;
   }
+
   .tech-orbit__center {
     width: 88px;
     height: 88px;

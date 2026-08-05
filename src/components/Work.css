@@ -1,6 +1,6 @@
 /* ============================================
    WORK / PROJECTS SECTION STYLES
-   Clean 3D Stacked Card Deck
+   Clean 3D Stacked Card Deck with Multi-Layer Parallax
    ============================================ */
 
 /* Pinned container height controls scroll duration */
@@ -8,6 +8,50 @@
   height: 300vh;
   position: relative;
   overflow: visible;
+}
+
+/* Background Parallax Orbs */
+.work__bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+.work__bg-glow--1 {
+  top: 10%;
+  left: 5%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(120, 119, 198, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.work__bg-glow--2 {
+  bottom: 15%;
+  right: 5%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+/* Background Parallax Watermark */
+.work__bg-watermark {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--ff-mono, monospace);
+  font-size: clamp(6rem, 16vw, 15rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.025);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+  will-change: transform, opacity;
 }
 
 /* Sticky viewport container */
@@ -21,6 +65,7 @@
   justify-content: center;
   overflow: hidden;
   background: transparent;
+  z-index: 1;
 }
 
 .work__container {
@@ -32,6 +77,7 @@
   flex-direction: column;
   justify-content: center;
   gap: var(--space-xl);
+  z-index: 2;
 }
 
 /* Header bar */
@@ -39,6 +85,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  will-change: transform;
 }
 
 .work__header-label {
@@ -92,6 +139,7 @@
   line-height: var(--lh-snug);
   letter-spacing: var(--ls-tight);
   color: var(--color-text-primary);
+  will-change: transform;
 }
 
 /* Stacked cards stage container */
@@ -102,6 +150,7 @@
   height: clamp(340px, 48vh, 420px);
   margin: 0 auto;
   perspective: 1200px;
+  will-change: transform;
 }
 
 /* Individual card inside stack */
@@ -120,12 +169,29 @@
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
   will-change: transform, opacity;
   transform-style: preserve-3d;
+  overflow: hidden;
   transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
 
 .work__card--active {
   border-color: var(--color-border-light, #333333);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 30px rgba(255, 255, 255, 0.03);
+}
+
+/* Internal Card Watermark Number */
+.work__card-watermark-num {
+  position: absolute;
+  right: -1rem;
+  bottom: -2.5rem;
+  font-family: var(--ff-mono, monospace);
+  font-size: clamp(8rem, 18vw, 15rem);
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  will-change: transform;
 }
 
 /* Card header */
@@ -134,6 +200,7 @@
   align-items: center;
   justify-content: space-between;
   z-index: 2;
+  position: relative;
 }
 
 .work__card-badges {
@@ -174,6 +241,7 @@
 .work__card-body {
   margin: var(--space-xs) 0;
   z-index: 2;
+  position: relative;
 }
 
 .work__card-title {
@@ -208,6 +276,12 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 4px 10px;
   border-radius: 6px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.work__card--active .work__card-tech-pill:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Card footer */
@@ -217,6 +291,7 @@
   justify-content: space-between;
   padding-top: 0.8rem;
   z-index: 2;
+  position: relative;
 }
 
 .work__card-links {
@@ -278,4 +353,15 @@
   .work__card {
     padding: 1.25rem;
   }
+
+  .work__bg-watermark {
+    font-size: 5rem;
+  }
+
+  .work__card-watermark-num {
+    font-size: 6rem;
+    right: 0;
+    bottom: -1rem;
+  }
 }
+

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValueEvent, useSpring, useMotionValue } from 'framer-motion'
 import './Work.css'
 
 const projects = [
@@ -42,11 +42,13 @@ const projects = [
 ]
 
 function StackedCard({ project, index, total, progress, activeIndex }) {
-  // Stack deck animation configuration:
-  // Card 0 (01): Top of stack (zIndex: 3), swipes LEFT on scroll
-  // Card 1 (02): Middle of stack (zIndex: 2), moves up to front, swipes RIGHT on scroll
-  // Card 2 (03): Bottom of stack (zIndex: 1), moves up to front
-  let xRange, yRange, rotateRange, opacityRange, scaleRange, progressInput
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const cardRotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 200, damping: 20 })
+  const cardRotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 200, damping: 20 })
+
+  let xRange, yRange, rotateRange, opacityRange, scaleRange, progressInput, watermarkYRange
 
   if (index === 0) {
     progressInput = [0.0, 0.12, 0.36, 1.0]
@@ -55,6 +57,7 @@ function StackedCard({ project, index, total, progress, activeIndex }) {
     rotateRange = ['0deg', '0deg', '-12deg', '-12deg']
     opacityRange = [1, 1, 0, 0]
     scaleRange = [1, 1, 1, 1]
+    watermarkYRange = ['0px', '0px', '80px', '120px']
   } else if (index === 1) {
     progressInput = [0.0, 0.12, 0.36, 0.48, 0.72, 1.0]
     xRange = ['0%', '0%', '0%', '0%', '120%', '120%']
@@ -62,6 +65,7 @@ function StackedCard({ project, index, total, progress, activeIndex }) {
     rotateRange = ['0deg', '0deg', '0deg', '0deg', '12deg', '12deg']
     opacityRange = [0.65, 0.65, 1, 1, 0, 0]
     scaleRange = [0.94, 0.94, 1, 1, 1, 1]
+    watermarkYRange = ['-40px', '-40px', '0px', '0px', '80px', '120px']
   } else {
     progressInput = [0.0, 0.12, 0.36, 0.48, 0.72, 1.0]
     xRange = ['0%', '0%', '0%', '0%', '0%', '0%']
@@ -69,15 +73,33 @@ function StackedCard({ project, index, total, progress, activeIndex }) {
     rotateRange = ['0deg', '0deg', '0deg', '0deg', '0deg', '0deg']
     opacityRange = [0.35, 0.35, 0.65, 0.65, 1, 1]
     scaleRange = [0.88, 0.88, 0.94, 0.94, 1, 1]
+    watermarkYRange = ['-80px', '-80px', '-40px', '-40px', '0px', '0px']
   }
 
   const x = useTransform(progress, progressInput, xRange)
   const y = useTransform(progress, progressInput, yRange)
-  const rotate = useTransform(progress, progressInput, rotateRange)
+  const rotateZ = useTransform(progress, progressInput, rotateRange)
   const opacity = useTransform(progress, progressInput, opacityRange)
   const scale = useTransform(progress, progressInput, scaleRange)
+  const watermarkY = useTransform(progress, progressInput, watermarkYRange)
 
   const zIndex = total - index
+
+  const handleMouseMove = (e) => {
+    if (activeIndex !== index) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const width = rect.width
+    const height = rect.height
+    const mouseXPos = (e.clientX - rect.left) / width - 0.5
+    const mouseYPos = (e.clientY - rect.top) / height - 0.5
+    mouseX.set(mouseXPos)
+    mouseY.set(mouseYPos)
+  }
+
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+  }
 
   const scrollToSection = (e, href) => {
     if (href.startsWith('#')) {
@@ -92,15 +114,28 @@ function StackedCard({ project, index, total, progress, activeIndex }) {
   return (
     <motion.article
       className={`work__card ${activeIndex === index ? 'work__card--active' : ''}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{
         x,
         y,
-        rotate,
+        rotateZ,
+        rotateX: activeIndex === index ? cardRotateX : 0,
+        rotateY: activeIndex === index ? cardRotateY : 0,
         opacity,
         scale,
         zIndex,
       }}
     >
+      {/* Internal Parallax Background Number Watermark */}
+      <motion.span
+        className="work__card-watermark-num"
+        style={{ y: watermarkY }}
+        aria-hidden="true"
+      >
+        {project.number}
+      </motion.span>
+
       <div className="work__card-header">
         <div className="work__card-badges">
           <span className="work__card-number">{project.number}</span>
@@ -154,6 +189,25 @@ function Work() {
     offset: ['start start', 'end end'],
   })
 
+  // Smooth scroll spring for silky parallax physics
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 24,
+    restDelta: 0.001,
+  })
+
+  // Multi-layered Parallax Transforms
+  const bgTextY = useTransform(smoothProgress, [0, 1], [-120, 120])
+  const bgTextX = useTransform(smoothProgress, [0, 1], [-40, 40])
+  const bgTextOpacity = useTransform(smoothProgress, [0, 0.5, 1], [0.02, 0.05, 0.02])
+
+  const bgGlow1Y = useTransform(smoothProgress, [0, 1], [-150, 150])
+  const bgGlow2Y = useTransform(smoothProgress, [0, 1], [180, -180])
+
+  const headerY = useTransform(smoothProgress, [0, 0.5, 1], [0, -25, -50])
+  const titleY = useTransform(smoothProgress, [0, 0.5, 1], [0, -15, -30])
+  const stageY = useTransform(smoothProgress, [0, 0.5, 1], [20, 0, -20])
+
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (latest < 0.35) {
       setActiveIndex(0)
@@ -166,10 +220,31 @@ function Work() {
 
   return (
     <section className="work-pinned-section" id="work" ref={sectionRef}>
+      {/* Background Parallax Layer: Ambient Orbs */}
+      <motion.div
+        className="work__bg-glow work__bg-glow--1"
+        style={{ y: bgGlow1Y }}
+        aria-hidden="true"
+      />
+      <motion.div
+        className="work__bg-glow work__bg-glow--2"
+        style={{ y: bgGlow2Y }}
+        aria-hidden="true"
+      />
+
+      {/* Background Parallax Layer: Watermark Text */}
+      <motion.div
+        className="work__bg-watermark"
+        style={{ y: bgTextY, x: bgTextX, opacity: bgTextOpacity }}
+        aria-hidden="true"
+      >
+        PROJECTS
+      </motion.div>
+
       <div className="work-sticky-wrapper">
         <div className="work__container">
-          {/* Section Header */}
-          <div className="work__header-bar">
+          {/* Section Header with Parallax Shift */}
+          <motion.div className="work__header-bar" style={{ y: headerY }}>
             <div className="work__header-label">
               <span className="work__number">04</span>
               <span className="work__slash">/</span>
@@ -181,12 +256,14 @@ function Work() {
               <span className="work__counter-divider">/</span>
               <span className="work__counter-total">0{projects.length}</span>
             </div>
-          </div>
+          </motion.div>
 
-          <h2 className="work__title">Projects I've brought to life.</h2>
+          <motion.h2 className="work__title" style={{ y: titleY }}>
+            Projects I've brought to life.
+          </motion.h2>
 
-          {/* Stacked Cards Stage */}
-          <div className="work__cards-stage">
+          {/* Stacked Cards Stage with Parallax */}
+          <motion.div className="work__cards-stage" style={{ y: stageY }}>
             {projects.map((project, index) => (
               <StackedCard
                 key={project.number}
@@ -197,7 +274,7 @@ function Work() {
                 activeIndex={activeIndex}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -205,3 +282,4 @@ function Work() {
 }
 
 export default Work
+
