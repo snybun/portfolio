@@ -97,13 +97,13 @@ const experiences = [
   },
   {
     id: 'exp-2',
-    role: 'Application Tester',
+    role: 'Application Tester & Video Editor',
     company: 'BSTech Solutions',
     period: '2025 — 2025',
     location: 'Philippines',
     description:
       'Executed functional, usability, and regression testing for mobile and web applications. Documented test scenarios, logged issue reports, and ensured seamless user experience.',
-    skills: ['App Testing', 'Test Case Design', 'Mobile & Web QA', 'UI/UX Testing', 'Bug Reporting'],
+    skills: ['App Testing', 'Test Case Design', 'Mobile & Web QA', 'UI/UX Testing', 'Video Editing', 'Bug Reporting'],
   },
 ]
 
