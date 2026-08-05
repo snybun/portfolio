@@ -1,10 +1,24 @@
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef } from 'react'
 import './Footer.css'
 
 function Footer() {
   const footerRef = useRef(null)
   const isInView = useInView(footerRef, { margin: '-50px' })
+
+  // Scroll driven parallax physics
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ['start end', 'end end'],
+  })
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 25,
+    restDelta: 0.001,
+  })
+
+  const footerY = useTransform(smoothProgress, [0, 1], [30, 0])
 
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -23,7 +37,7 @@ function Footer() {
 
   return (
     <footer className="footer" ref={footerRef}>
-      <div className="footer__container">
+      <motion.div className="footer__container" style={{ y: footerY }}>
         <motion.div
           className="footer__left"
           variants={fadeUp}
@@ -57,7 +71,7 @@ function Footer() {
             </a>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </footer>
   )
 }
