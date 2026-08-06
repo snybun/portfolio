@@ -9,6 +9,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
 import CustomCursor from './components/CustomCursor'
+import Chatbot from './components/Chatbot'
 
 function App() {
   const [preloaderDone, setPreloaderDone] = useState(false)
@@ -29,9 +30,11 @@ function App() {
           <Contact />
         </main>
         <Footer />
+        <Chatbot />
       </div>
     </>
   )
 }
 
 export default App
+
