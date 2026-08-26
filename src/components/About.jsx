@@ -89,7 +89,7 @@ const experiences = [
     id: 'exp-1',
     role: 'Tech Support & QA Specialist',
     company: 'Guanzon Group of Companies',
-    period: '2026 — PRESENT',
+    period: 'April 2026 — July 2026',
     location: 'Philippines',
     description:
       'Providing technical support, performing quality assurance testing on software systems, diagnosing technical issues, and verifying product reliability before deployment.',
@@ -97,9 +97,9 @@ const experiences = [
   },
   {
     id: 'exp-2',
-    role: 'Application Tester & Video Editor',
+    role: 'Application Tester & Video Editor (Intern)',
     company: 'BSTech Solutions',
-    period: '2025 — 2025',
+    period: 'February 2025',
     location: 'Philippines',
     description:
       'Executed functional, usability, and regression testing for mobile and web applications. Documented test scenarios, logged issue reports, and ensured seamless user experience.',

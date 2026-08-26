@@ -139,7 +139,6 @@ export default function TechGlobe3D({ items }) {
 
       setProjectedItems(projected)
 
-      // Draw Dense 3D Wireframe Sphere Mesh on Background Canvas
       const canvas = canvasRef.current
       if (canvas) {
         const ctx = canvas.getContext('2d')
@@ -150,7 +149,6 @@ export default function TechGlobe3D({ items }) {
           ctx.scale(dpr, dpr)
           ctx.clearRect(0, 0, containerSize.width, containerSize.height)
 
-          // 1. Draw Longitudinal Meridians (Lines connecting north & south poles)
           const lonLines = 18
           for (let j = 0; j < lonLines; j++) {
             const lonAngle = (j / lonLines) * Math.PI * 2
