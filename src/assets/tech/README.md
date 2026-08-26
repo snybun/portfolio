@@ -19,6 +19,7 @@ Name your PNG files after the technology name (lowercase):
 - `mysql.png`
 - `postgresql.png`
 - `supabase.png`
+- `postman.png`
 - `vercel.png`
 - `git.png`
 - `github.png`

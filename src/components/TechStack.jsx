@@ -22,6 +22,7 @@ export const USER_TECH_STACK = [
   { name: 'MYSQL', icon: 'mysql' },
   { name: 'POSTGRESQL', icon: 'postgresql' },
   { name: 'SUPABASE', icon: 'supabase' },
+  { name: 'POSTMAN', icon: 'postman' },
   { name: 'VERCEL', icon: 'vercel' },
   { name: 'GIT', icon: 'git' },
   { name: 'GITHUB', icon: 'github' },

@@ -266,7 +266,7 @@ export default function TechGlobe3D({ items }) {
   }
 
   const isSolidTileIcon = (iconName = '') => {
-    const tileList = ['javascript', 'js', 'typescript', 'ts', 'bootstrap', 'html5', 'html', 'css', 'css3', 'figma', 'docker']
+    const tileList = ['javascript', 'js', 'typescript', 'ts', 'bootstrap', 'html5', 'html', 'css', 'css3', 'figma', 'docker', 'postman']
     return tileList.includes(iconName.toLowerCase())
   }
 
