@@ -60,7 +60,7 @@ function Footer() {
           custom={0.1}
         >
           <span className="footer__copyright">
-            © {currentYear} Mark. All rights reserved.
+            © {currentYear} Mark. Built with Next.js, Three.js and Framer Motion.
           </span>
           <div className="footer__links">
             <a href="#hero" className="footer__link" onClick={(e) => {
