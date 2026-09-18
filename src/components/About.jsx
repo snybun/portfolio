@@ -90,20 +90,20 @@ const experiences = [
     role: 'Tech Support & QA Specialist',
     company: 'Guanzon Group of Companies',
     period: 'April 2026 — July 2026',
-    location: 'Philippines',
+    location: 'Philippines, Pangasinan, Dagupan City Tapuac District',
     description:
       'Providing technical support, performing quality assurance testing on software systems, diagnosing technical issues, and verifying product reliability before deployment.',
-    skills: ['Quality Assurance', 'Tech Support', 'Software Testing', 'Bug Tracking & QA', 'System Diagnostics'],
+    skills: ['Quality Assurance', 'Tech Support', 'Software Testing', 'Bug Tracking & QA', 'App Testing'],
   },
   {
     id: 'exp-2',
     role: 'Application Tester & Video Editor (Intern)',
     company: 'BSTech Solutions',
     period: 'February 2025',
-    location: 'Philippines',
+    location: 'Philippines, Pangasinan, Calasiao',
     description:
-      'Executed functional, usability, and regression testing for mobile and web applications. Documented test scenarios, logged issue reports, and ensured seamless user experience.',
-    skills: ['App Testing', 'Test Case Design', 'Mobile & Web QA', 'UI/UX Testing', 'Video Editing', 'Bug Reporting'],
+      'Executed functional, usability, and testing portal of PSU (Pangasinan Statue University (all campuses)). Documented test scenarios, logged issue reports. and delivered hardware parts on different areas.',
+    skills: ['App Testing', 'Test Case Design', 'Web QA', 'UI/UX Testing', 'Video Editing', 'Bug Reporting'],
   },
 ]
 
@@ -190,9 +190,8 @@ function About() {
                 custom={0.2}
               >
                 A UI/UX designer and developer based in the Philippines.
-                Student at <b>PHINMA University of Pangasinan. z</b>
-                I craft digital experiences that combine clean aesthetics with thoughtful
-                functionality - bringing ideas to life through code and creativity.
+                Student at <b>PHINMA University of Pangasinan. </b>
+                Currently mastering Laravel and Reactjs.
               </motion.p>
             </motion.div>
 

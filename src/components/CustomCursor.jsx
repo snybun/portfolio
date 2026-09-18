@@ -29,16 +29,16 @@ function CustomCursor() {
 
       return Boolean(
         target.closest('a') ||
-          target.closest('button') ||
-          target.closest('[data-cursor-hover]') ||
-          target.closest('.navbar') ||
-          target.closest('.process__step-header') ||
-          target.closest('.contact__cta') ||
-          target.closest('.work__project-link') ||
-          target.closest('.contact__social-link') ||
-          target.closest('.footer__link') ||
-          target.closest('.about__skill-tag') ||
-          target.closest('.hero__scroll-indicator')
+        target.closest('button') ||
+        target.closest('[data-cursor-hover]') ||
+        target.closest('.navbar') ||
+        target.closest('.process__step-header') ||
+        target.closest('.contact__cta') ||
+        target.closest('.work__project-link') ||
+        target.closest('.contact__social-link') ||
+        target.closest('.footer__link') ||
+        target.closest('.about__skill-tag') ||
+        target.closest('.hero__scroll-indicator')
       )
     }
 

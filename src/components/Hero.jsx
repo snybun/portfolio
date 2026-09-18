@@ -119,6 +119,7 @@ function Hero({ preloaderDone }) {
         </span>
       </motion.h1>
 
+
       <div className="hero__scroll-wrapper">
         <motion.div
           className="hero__scroll-indicator"
@@ -127,7 +128,7 @@ function Hero({ preloaderDone }) {
           animate={shouldAnimate ? 'visible' : 'hidden'}
           onClick={scrollToAbout}
         >
-          <span className="hero__scroll-text">Scroll to explore</span>
+          <span className="hero__scroll-text">scroll to explore</span>
           <div className="hero__scroll-line" />
         </motion.div>
       </div>
