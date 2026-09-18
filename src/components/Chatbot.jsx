@@ -2,39 +2,39 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Chatbot.css'
 
-// Preset quick questions for fast user interaction
+// Preset quick inquiries for direct portfolio exploration
 const QUICK_PROMPTS = [
-  { label: '🚀 Top Skills', query: 'What are your main tech skills?' },
-  { label: '📁 Featured Projects', query: 'Tell me about your projects' },
-  { label: '💼 Available for Hire?', query: 'Are you open for freelance or full-time roles?' },
-  { label: '📬 Contact Info', query: 'How can I get in touch with you?' },
+  { label: 'Tech Stack', query: 'What is your main tech stack?' },
+  { label: 'Featured Work', query: 'Tell me about your featured projects' },
+  { label: 'Availability', query: 'Are you open for freelance or full-time roles?' },
+  { label: 'Contact', query: 'How can I get in touch with you?' },
 ]
 
-// Portfolio Knowledge Base Response Engine
+// Portfolio Knowledge Engine - Direct, minimal, professional
 const getPortfolioResponse = (userInput) => {
   const query = userInput.toLowerCase().trim()
 
   if (query.includes('skill') || query.includes('tech') || query.includes('stack') || query.includes('language')) {
-    return "My primary stack includes **React 19, JavaScript (ES6+), Framer Motion, CSS3 / HTML5, 3D Canvas / Three.js**, and modern web tooling like Vite and Node.js. I focus on high-performance, visually captivating interfaces!"
+    return "Mark's core stack includes **React 19, JavaScript (ES6+), Framer Motion, Modern CSS, Three.js / WebGL**, and Node.js. He specializes in high-performance interfaces, clean typography, and fluid web interactions."
   }
 
-  if (query.includes('project') || query.includes('work') || query.includes('portfolio') || query.includes('demo')) {
-    return "I've built interactive 3D web applications, sleek portfolio templates, creative agency sites, and full-stack web apps. Check out the **Work** section right on this page to see detailed case studies!"
+  if (query.includes('project') || query.includes('work') || query.includes('portfolio') || query.includes('demo') || query.includes('case')) {
+    return "Featured work includes interactive 3D web applications, minimal design systems, and modern front-end experiences. You can inspect the detailed case studies in the **Work** section above."
   }
 
   if (query.includes('hire') || query.includes('job') || query.includes('freelance') || query.includes('available') || query.includes('opportunity')) {
-    return "Yes! I am currently available for select freelance projects, full-time remote roles, and creative collaborations. Feel free to reach out via the Contact section below!"
+    return "Mark is currently open for select freelance contracts, creative collaborations, and full-time engineering roles. Feel free to connect using the **Contact** section below."
   }
 
   if (query.includes('contact') || query.includes('email') || query.includes('reach') || query.includes('touch') || query.includes('message')) {
-    return "You can get in touch by using the **Contact Form** on this website, or connect via GitHub and LinkedIn linked in the footer. I usually reply within 24 hours!"
+    return "You can get in touch using the **Contact Form** at the bottom of the page, or connect via GitHub and LinkedIn linked in the footer."
   }
 
   if (query.includes('hello') || query.includes('hi') || query.includes('hey') || query.includes('sup') || query.includes('who are you')) {
-    return "Hello there! 👋 I'm the portfolio AI assistant. I can answer questions about skills, projects, work experience, or availability. How can I help you today?"
+    return "Hello. This is Mark's portfolio guide. You can ask about his tech stack, featured projects, or availability."
   }
 
-  return "Thanks for asking! As an interactive portfolio assistant, I can share details about tech skills, featured projects, experience, and contact info. Feel free to use the quick buttons below or ask a question!"
+  return "I can share details on Mark's technical stack, featured case studies, and availability. Choose one of the quick tags below or enter an inquiry."
 }
 
 export default function Chatbot() {
@@ -43,7 +43,7 @@ export default function Chatbot() {
     {
       id: 1,
       sender: 'assistant',
-      text: "Hi! 👋 Welcome to my portfolio. How can I help you explore today?",
+      text: "Hello. Feel free to ask about Mark's technical stack, featured work, or availability.",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ])
@@ -68,7 +68,6 @@ export default function Chatbot() {
 
     const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
-    // Add User Message
     const userMsg = {
       id: Date.now(),
       sender: 'user',
@@ -80,7 +79,7 @@ export default function Chatbot() {
     if (!textToSend) setInputValue('')
     setIsTyping(true)
 
-    // Simulate natural AI thinking delay
+    // Minimal delay simulating inquiry response
     setTimeout(() => {
       const responseText = getPortfolioResponse(text)
       const assistantMsg = {
@@ -91,7 +90,7 @@ export default function Chatbot() {
       }
       setMessages((prev) => [...prev, assistantMsg])
       setIsTyping(false)
-    }, 700)
+    }, 500)
   }
 
   const handleKeyDown = (e) => {
@@ -106,68 +105,31 @@ export default function Chatbot() {
       {
         id: Date.now(),
         sender: 'assistant',
-        text: "Chat reset. Feel free to ask anything else about my portfolio!",
+        text: "Conversation cleared. Feel free to ask another question.",
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       },
     ])
   }
 
   return (
-    <div className="chatbot-wrapper">
-      {/* Floating Trigger Launcher Button */}
-      <motion.button
-        className="chatbot-toggle-btn"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label={isOpen ? "Close Portfolio Chatbot" : "Open Portfolio Chatbot"}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.94 }}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      >
-        <div className="chatbot-toggle-pulse" />
-        <span className="chatbot-status-badge">
-          <span className="chatbot-badge-pulse" />
-        </span>
-        
-        <div className="chatbot-toggle-icon">
-          {isOpen ? (
-            /* Close Cross Icon */
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          ) : (
-            /* Sparkle Chat Icon */
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
-          )}
-        </div>
-      </motion.button>
-
-      {/* Animated Chat Window Drawer */}
+    <div className="chatbot-root">
+      {/* Animated Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             className="chatbot-window"
-            initial={{ opacity: 0, scale: 0.85, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.85, y: 20 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, scale: 0.96, y: 10 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Header */}
             <div className="chatbot-header">
               <div className="chatbot-header-info">
-                <div className="chatbot-avatar">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                  </svg>
-                  <span className="chatbot-avatar-dot" />
-                </div>
+                <div className="chatbot-avatar">M.</div>
                 <div>
-                  <h3 className="chatbot-header-title">Portfolio Assistant</h3>
-                  <span className="chatbot-header-subtitle">Online & Ready</span>
+                  <h3 className="chatbot-header-title">Mark / Inquiries</h3>
+                  <span className="chatbot-header-subtitle">Portfolio Guide</span>
                 </div>
               </div>
 
@@ -178,7 +140,7 @@ export default function Chatbot() {
                   title="Clear Conversation"
                   aria-label="Clear chat messages"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="3 6 5 6 21 6" />
                     <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                   </svg>
@@ -186,11 +148,12 @@ export default function Chatbot() {
                 <button
                   className="chatbot-icon-btn"
                   onClick={() => setIsOpen(false)}
-                  title="Minimize"
-                  aria-label="Minimize chatbot window"
+                  title="Close"
+                  aria-label="Close chatbot window"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
                 </button>
               </div>
@@ -213,10 +176,10 @@ export default function Chatbot() {
               ))}
 
               {isTyping && (
-                <div className="chatbot-typing-indicator">
-                  <div className="chatbot-typing-dot" />
-                  <div className="chatbot-typing-dot" />
-                  <div className="chatbot-typing-dot" />
+                <div className="chatbot-typing-indicator" aria-label="Typing">
+                  <span className="chatbot-typing-dot" />
+                  <span className="chatbot-typing-dot" />
+                  <span className="chatbot-typing-dot" />
                 </div>
               )}
 
@@ -248,7 +211,7 @@ export default function Chatbot() {
                 <input
                   type="text"
                   className="chatbot-input"
-                  placeholder="Ask a question..."
+                  placeholder="Type an inquiry..."
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
@@ -259,9 +222,9 @@ export default function Chatbot() {
                   disabled={!inputValue.trim()}
                   aria-label="Send message"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="22" y1="2" x2="11" y2="13" />
-                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="12" y1="19" x2="12" y2="5" />
+                    <polyline points="5 12 12 5 19 12" />
                   </svg>
                 </button>
               </form>
@@ -269,6 +232,30 @@ export default function Chatbot() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Floating Toggle Launcher Button */}
+      <motion.button
+        className={`chatbot-toggle-btn ${isOpen ? 'chatbot-toggle-btn--active' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close Inquiries" : "Open Inquiries"}
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.96 }}
+        transition={{ duration: 0.15 }}
+      >
+        {isOpen ? (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        ) : (
+          <>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <span className="chatbot-toggle-label">Inquiries</span>
+          </>
+        )}
+      </motion.button>
     </div>
   )
 }
