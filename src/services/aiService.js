@@ -191,40 +191,43 @@ export async function fetchAIResponse(userText, messagesHistory = []) {
 
   // 1. If Google Gemini API key is configured
   if (geminiApiKey) {
-    try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: 'user',
-                parts: [
-                  {
-                    text: `${SYSTEM_TRAINING_PROMPT}\n\nUser question: ${userText}`,
-                  },
-                ],
+    const geminiModels = ['gemini-flash-latest', 'gemini-3.6-flash', 'gemini-2.5-flash']
+    for (const model of geminiModels) {
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiApiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [
+                {
+                  role: 'user',
+                  parts: [
+                    {
+                      text: `${SYSTEM_TRAINING_PROMPT}\n\nUser question: ${userText}`,
+                    },
+                  ],
+                },
+              ],
+              generationConfig: {
+                temperature: 0.6,
+                maxOutputTokens: 250,
               },
-            ],
-            generationConfig: {
-              temperature: 0.6,
-              maxOutputTokens: 250,
-            },
-          }),
-        }
-      )
+            }),
+          }
+        )
 
-      if (response.ok) {
-        const data = await response.json()
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
-        if (text) {
-          return text.trim().toLowerCase()
+        if (response.ok) {
+          const data = await response.json()
+          const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
+          if (text) {
+            return text.trim().toLowerCase()
+          }
         }
+      } catch (err) {
+        console.warn(`Gemini API call with ${model} failed:`, err)
       }
-    } catch (err) {
-      console.warn('Gemini API call failed, falling back to trained engine:', err)
     }
   }
 
