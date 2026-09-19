@@ -1,41 +1,16 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { fetchAIResponse } from '../services/aiService'
 import './Chatbot.css'
 
-// Preset quick inquiries for direct portfolio exploration
+// Quick inquiry tags in all lowercase
 const QUICK_PROMPTS = [
-  { label: 'Tech Stack', query: 'What is your main tech stack?' },
-  { label: 'Featured Work', query: 'Tell me about your featured projects' },
-  { label: 'Availability', query: 'Are you open for freelance or full-time roles?' },
-  { label: 'Contact', query: 'How can I get in touch with you?' },
+  { label: 'stack', query: 'what is your tech stack?' },
+  { label: 'projects', query: 'tell me about your featured projects' },
+  { label: 'experience', query: 'what is your work experience?' },
+  { label: 'availability', query: 'are you open for freelance or full-time roles?' },
+  { label: 'contact', query: 'how can i get in touch with you?' },
 ]
-
-// Portfolio Knowledge Engine - Direct, minimal, professional
-const getPortfolioResponse = (userInput) => {
-  const query = userInput.toLowerCase().trim()
-
-  if (query.includes('skill') || query.includes('tech') || query.includes('stack') || query.includes('language')) {
-    return "Mark's core stack includes **React 19, JavaScript (ES6+), Framer Motion, Modern CSS, Three.js / WebGL**, and Node.js. He specializes in high-performance interfaces, clean typography, and fluid web interactions."
-  }
-
-  if (query.includes('project') || query.includes('work') || query.includes('portfolio') || query.includes('demo') || query.includes('case')) {
-    return "Featured work includes interactive 3D web applications, minimal design systems, and modern front-end experiences. You can inspect the detailed case studies in the **Work** section above."
-  }
-
-  if (query.includes('hire') || query.includes('job') || query.includes('freelance') || query.includes('available') || query.includes('opportunity')) {
-    return "Mark is currently open for select freelance contracts, creative collaborations, and full-time engineering roles. Feel free to connect using the **Contact** section below."
-  }
-
-  if (query.includes('contact') || query.includes('email') || query.includes('reach') || query.includes('touch') || query.includes('message')) {
-    return "You can get in touch using the **Contact Form** at the bottom of the page, or connect via GitHub and LinkedIn linked in the footer."
-  }
-
-  if (query.includes('hello') || query.includes('hi') || query.includes('hey') || query.includes('sup') || query.includes('who are you')) {
-    return "Hello. This is Mark's portfolio guide. You can ask about his tech stack, featured projects, or availability."
-  }
-
-  return "I can share details on Mark's technical stack, featured case studies, and availability. Choose one of the quick tags below or enter an inquiry."
-}
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
@@ -43,8 +18,8 @@ export default function Chatbot() {
     {
       id: 1,
       sender: 'assistant',
-      text: "Hello. Feel free to ask about Mark's technical stack, featured work, or availability.",
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      text: "hey, i'm mark's portfolio assistant. ask me anything about his projects, skills, experience, or availability.",
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase(),
     },
   ])
   const [inputValue, setInputValue] = useState('')
@@ -62,35 +37,45 @@ export default function Chatbot() {
     }
   }, [messages, isTyping, isOpen])
 
-  const handleSendMessage = (textToSend) => {
+  const handleSendMessage = async (textToSend) => {
     const text = textToSend || inputValue
     if (!text.trim()) return
 
-    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase()
 
     const userMsg = {
       id: Date.now(),
       sender: 'user',
-      text: text.trim(),
+      text: text.trim().toLowerCase(),
       time: timestamp,
     }
 
-    setMessages((prev) => [...prev, userMsg])
+    const nextMessages = [...messages, userMsg]
+    setMessages(nextMessages)
     if (!textToSend) setInputValue('')
     setIsTyping(true)
 
-    // Minimal delay simulating inquiry response
-    setTimeout(() => {
-      const responseText = getPortfolioResponse(text)
+    try {
+      const responseText = await fetchAIResponse(text, nextMessages)
       const assistantMsg = {
         id: Date.now() + 1,
         sender: 'assistant',
-        text: responseText,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        text: responseText.toLowerCase(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase(),
       }
       setMessages((prev) => [...prev, assistantMsg])
+    } catch (err) {
+      console.error('Failed to get AI response:', err)
+      const errorMsg = {
+        id: Date.now() + 1,
+        sender: 'assistant',
+        text: "sorry, i ran into an issue answering that. feel free to ask again or reach out directly.",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase(),
+      }
+      setMessages((prev) => [...prev, errorMsg])
+    } finally {
       setIsTyping(false)
-    }, 500)
+    }
   }
 
   const handleKeyDown = (e) => {
@@ -105,15 +90,15 @@ export default function Chatbot() {
       {
         id: Date.now(),
         sender: 'assistant',
-        text: "Conversation cleared. Feel free to ask another question.",
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        text: "chat cleared. what else would you like to know?",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase(),
       },
     ])
   }
 
   return (
     <div className="chatbot-root">
-      {/* Animated Window */}
+      {/* Animated Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -126,10 +111,10 @@ export default function Chatbot() {
             {/* Header */}
             <div className="chatbot-header">
               <div className="chatbot-header-info">
-                <div className="chatbot-avatar">M.</div>
+                <div className="chatbot-avatar">m.</div>
                 <div>
-                  <h3 className="chatbot-header-title">Mark / Inquiries</h3>
-                  <span className="chatbot-header-subtitle">Portfolio Guide</span>
+                  <h3 className="chatbot-header-title">mark</h3>
+                  <span className="chatbot-header-subtitle">portfolio assistant</span>
                 </div>
               </div>
 
@@ -137,8 +122,8 @@ export default function Chatbot() {
                 <button
                   className="chatbot-icon-btn"
                   onClick={handleClearChat}
-                  title="Clear Conversation"
-                  aria-label="Clear chat messages"
+                  title="clear chat"
+                  aria-label="clear chat messages"
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="3 6 5 6 21 6" />
@@ -148,8 +133,8 @@ export default function Chatbot() {
                 <button
                   className="chatbot-icon-btn"
                   onClick={() => setIsOpen(false)}
-                  title="Close"
-                  aria-label="Close chatbot window"
+                  title="close"
+                  aria-label="close chat window"
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -167,16 +152,14 @@ export default function Chatbot() {
                   className={`chatbot-msg-row chatbot-msg-row--${msg.sender}`}
                 >
                   <div className="chatbot-msg-bubble">
-                    {msg.text.split('**').map((part, index) => 
-                      index % 2 === 1 ? <strong key={index}>{part}</strong> : part
-                    )}
+                    {msg.text}
                   </div>
                   <span className="chatbot-msg-time">{msg.time}</span>
                 </div>
               ))}
 
               {isTyping && (
-                <div className="chatbot-typing-indicator" aria-label="Typing">
+                <div className="chatbot-typing-indicator" aria-label="typing">
                   <span className="chatbot-typing-dot" />
                   <span className="chatbot-typing-dot" />
                   <span className="chatbot-typing-dot" />
@@ -186,7 +169,7 @@ export default function Chatbot() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick Suggestion Chips */}
+            {/* Suggestion Chips */}
             <div className="chatbot-presets">
               {QUICK_PROMPTS.map((prompt, idx) => (
                 <button
@@ -211,7 +194,7 @@ export default function Chatbot() {
                 <input
                   type="text"
                   className="chatbot-input"
-                  placeholder="Type an inquiry..."
+                  placeholder="type a message..."
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
@@ -220,7 +203,7 @@ export default function Chatbot() {
                   type="submit"
                   className="chatbot-send-btn"
                   disabled={!inputValue.trim()}
-                  aria-label="Send message"
+                  aria-label="send message"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" y1="19" x2="12" y2="5" />
@@ -233,27 +216,24 @@ export default function Chatbot() {
         )}
       </AnimatePresence>
 
-      {/* Floating Toggle Launcher Button */}
+      {/* Floating Toggle Launcher Button - Just the Icon */}
       <motion.button
-        className={`chatbot-toggle-btn ${isOpen ? 'chatbot-toggle-btn--active' : ''}`}
+        className="chatbot-toggle-btn"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label={isOpen ? "Close Inquiries" : "Open Inquiries"}
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.96 }}
+        aria-label={isOpen ? "close chat" : "open chat"}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.94 }}
         transition={{ duration: 0.15 }}
       >
         {isOpen ? (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         ) : (
-          <>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
-            <span className="chatbot-toggle-label">Inquiries</span>
-          </>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
         )}
       </motion.button>
     </div>

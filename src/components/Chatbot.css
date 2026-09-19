@@ -1,5 +1,5 @@
 /* ============================================
-   MONOCHROME PORTFOLIO INQUIRIES / CHATBOT
+   MONOCHROME PORTFOLIO CHATBOT
    Architectural & Minimalist Design System
    ============================================ */
 
@@ -15,17 +15,17 @@
   box-sizing: border-box;
 }
 
-/* --- Floating Launcher Button --- */
+/* --- Floating Circular Launcher Button (Icon Only) --- */
 .chatbot-toggle-btn {
-  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  height: 42px;
-  padding: 0 18px;
   background: var(--color-bg-elevated, #111111);
   border: 1px solid var(--color-border-light, #333333);
-  border-radius: var(--radius-full, 9999px);
   color: var(--color-text-primary, #f5f5f5);
   cursor: pointer;
   outline: none;
@@ -34,10 +34,6 @@
               color 0.2s ease,
               border-color 0.2s ease,
               box-shadow 0.2s ease;
-  font-size: var(--fs-xs, 0.8rem);
-  font-weight: var(--fw-medium, 500);
-  letter-spacing: var(--ls-wide, 0.05em);
-  text-transform: uppercase;
 }
 
 .chatbot-toggle-btn:hover {
@@ -47,34 +43,14 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
-.chatbot-toggle-btn--active {
-  width: 42px;
-  height: 42px;
-  padding: 0;
-  border-radius: 50%;
-  background: var(--color-surface, #1a1a1a);
-  border-color: var(--color-border-light, #333333);
-  color: var(--color-text-primary, #f5f5f5);
-}
-
-.chatbot-toggle-btn--active:hover {
-  background: var(--color-text-accent, #ffffff);
-  color: var(--color-bg, #0a0a0a);
-  border-color: var(--color-text-accent, #ffffff);
-}
-
-.chatbot-toggle-label {
-  line-height: 1;
-}
-
 /* --- Chat Window Container --- */
 .chatbot-window {
   position: absolute;
-  bottom: 54px;
+  bottom: 56px;
   right: 0;
-  width: 370px;
+  width: 360px;
   max-width: calc(100vw - 32px);
-  height: 510px;
+  height: 500px;
   max-height: calc(100vh - 100px);
   background: rgba(14, 14, 14, 0.96);
   backdrop-filter: blur(20px);
@@ -101,12 +77,12 @@
 .chatbot-header-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .chatbot-avatar {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: var(--radius-sm, 4px);
   background: var(--color-surface, #1c1c1c);
   border: 1px solid var(--color-border-light, #333333);
@@ -117,6 +93,7 @@
   font-weight: var(--fw-bold, 700);
   color: var(--color-text-accent, #ffffff);
   letter-spacing: -0.02em;
+  text-transform: lowercase;
 }
 
 .chatbot-header-title {
@@ -125,14 +102,15 @@
   color: var(--color-text-accent, #ffffff);
   line-height: 1.2;
   letter-spacing: -0.01em;
+  text-transform: lowercase;
 }
 
 .chatbot-header-subtitle {
   font-size: 0.68rem;
   color: var(--color-text-muted, #777777);
   font-weight: var(--fw-medium, 500);
-  letter-spacing: var(--ls-wide, 0.05em);
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
 }
 
 .chatbot-header-actions {
@@ -163,7 +141,7 @@
 /* --- Messages Container --- */
 .chatbot-messages {
   flex: 1;
-  padding: 18px;
+  padding: 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -210,17 +188,13 @@
   letter-spacing: -0.01em;
   word-break: break-word;
   border-radius: var(--radius-md, 8px);
+  text-transform: lowercase;
 }
 
 .chatbot-msg-row--assistant .chatbot-msg-bubble {
   background: var(--color-bg-card, #161616);
   border: 1px solid var(--color-border, #242424);
   color: var(--color-text-primary, #dedede);
-}
-
-.chatbot-msg-row--assistant .chatbot-msg-bubble strong {
-  color: var(--color-text-accent, #ffffff);
-  font-weight: var(--fw-semibold, 600);
 }
 
 .chatbot-msg-row--user .chatbot-msg-bubble {
@@ -236,6 +210,7 @@
   margin-top: 4px;
   padding: 0 2px;
   font-variant-numeric: tabular-nums;
+  text-transform: lowercase;
 }
 
 .chatbot-msg-row--assistant .chatbot-msg-time {
@@ -286,7 +261,7 @@
   }
 }
 
-/* --- Preset Quick Inquiries --- */
+/* --- Preset Quick Chips --- */
 .chatbot-presets {
   padding: 6px 16px 12px;
   display: flex;
@@ -313,7 +288,8 @@
               color 0.15s ease;
   white-space: nowrap;
   flex-shrink: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  text-transform: lowercase;
 }
 
 .chatbot-preset-chip:hover {
@@ -352,10 +328,12 @@
   color: var(--color-text-primary, #f5f5f5);
   font-size: 0.84rem;
   font-family: inherit;
+  text-transform: lowercase;
 }
 
 .chatbot-input::placeholder {
   color: var(--color-text-muted, #555555);
+  text-transform: lowercase;
 }
 
 .chatbot-send-btn {
@@ -399,6 +377,6 @@
     width: calc(100vw - 32px);
     height: 480px;
     max-height: calc(100vh - 84px);
-    bottom: 52px;
+    bottom: 54px;
   }
 }
